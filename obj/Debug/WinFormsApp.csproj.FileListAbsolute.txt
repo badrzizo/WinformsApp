@@ -1,0 +1,16 @@
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\WinFormsApp.exe.config
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\WinFormsApp.exe
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\WinFormsApp.pdb
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.MainPage.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.Properties.Resources.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.csproj.GenerateResource.cache
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.exe
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.pdb
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.Feasability.FeasabilityBoards.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.RoadBlockBoards.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.MileStone.MileStoneBoards.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.AddingPointsForm.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBloackProject.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBlockDepartement.resources
