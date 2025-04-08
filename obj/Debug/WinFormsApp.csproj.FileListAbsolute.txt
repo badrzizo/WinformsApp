@@ -14,3 +14,5 @@ C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.MileStone.Mil
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.AddingPointsForm.resources
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBloackProject.resources
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBlockDepartement.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\MaterialSkin.dll
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinForms.79E25943.Up2Date

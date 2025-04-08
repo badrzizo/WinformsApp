@@ -56,7 +56,7 @@ namespace WinFormsApp
         private DataTable GetOpenPointsByDepartment()
         {
             DataTable dataTable = new DataTable();
-            string connectionString = "Server=localhost;Database=master;Integrated Security=True;TrustServerCertificate=True;";
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();

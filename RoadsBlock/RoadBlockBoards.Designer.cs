@@ -47,14 +47,14 @@
             this.boardDBDataSet1 = new WinFormsApp.BoardDBDataSet1();
             this.roadblocksTableAdapter = new WinFormsApp.BoardDBDataSet1TableAdapters.RoadblocksTableAdapter();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.project = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.project_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dpt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.issuesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.actionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departement_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.duedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -199,21 +199,21 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
-            this.project,
+            this.project_id,
             this.fam_id,
-            this.dpt,
-            this.status,
             this.issuesDataGridViewTextBoxColumn,
             this.actionsDataGridViewTextBoxColumn,
             this.ownerDataGridViewTextBoxColumn,
-            this.duedateDataGridViewTextBoxColumn});
+            this.departement_name,
+            this.duedateDataGridViewTextBoxColumn,
+            this.status});
             this.dataGridView1.DataSource = this.roadblocksBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(266, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(746, 743);
+            this.dataGridView1.Size = new System.Drawing.Size(1102, 743);
             this.dataGridView1.TabIndex = 1;
             // 
             // roadblocksBindingSource
@@ -239,37 +239,21 @@
             this.id.ReadOnly = true;
             this.id.Width = 125;
             // 
-            // project
+            // project_id
             // 
-            this.project.DataPropertyName = "project_id";
-            this.project.HeaderText = "project_id";
-            this.project.MinimumWidth = 6;
-            this.project.Name = "project";
-            this.project.Width = 125;
+            this.project_id.DataPropertyName = "project_name";
+            this.project_id.HeaderText = "Project";
+            this.project_id.MinimumWidth = 6;
+            this.project_id.Name = "project_id";
+            this.project_id.Width = 125;
             // 
             // fam_id
             // 
-            this.fam_id.DataPropertyName = "fam_id";
-            this.fam_id.HeaderText = "fam_id";
+            this.fam_id.DataPropertyName = "family_name";
+            this.fam_id.HeaderText = "Family";
             this.fam_id.MinimumWidth = 6;
             this.fam_id.Name = "fam_id";
             this.fam_id.Width = 125;
-            // 
-            // dpt
-            // 
-            this.dpt.DataPropertyName = "dpt_id";
-            this.dpt.HeaderText = "dpt_id";
-            this.dpt.MinimumWidth = 6;
-            this.dpt.Name = "dpt";
-            this.dpt.Width = 125;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "status";
-            this.status.MinimumWidth = 6;
-            this.status.Name = "status";
-            this.status.Width = 125;
             // 
             // issuesDataGridViewTextBoxColumn
             // 
@@ -295,6 +279,14 @@
             this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
             this.ownerDataGridViewTextBoxColumn.Width = 125;
             // 
+            // departement_name
+            // 
+            this.departement_name.DataPropertyName = "departement_name";
+            this.departement_name.HeaderText = "Departement";
+            this.departement_name.MinimumWidth = 6;
+            this.departement_name.Name = "departement_name";
+            this.departement_name.Width = 125;
+            // 
             // duedateDataGridViewTextBoxColumn
             // 
             this.duedateDataGridViewTextBoxColumn.DataPropertyName = "due_date";
@@ -303,11 +295,19 @@
             this.duedateDataGridViewTextBoxColumn.Name = "duedateDataGridViewTextBoxColumn";
             this.duedateDataGridViewTextBoxColumn.Width = 125;
             // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "status";
+            this.status.MinimumWidth = 6;
+            this.status.Name = "status";
+            this.status.Width = 125;
+            // 
             // RoadBlockBoards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 743);
+            this.ClientSize = new System.Drawing.Size(1368, 743);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Name = "RoadBlockBoards";
@@ -344,13 +344,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn project;
+        private System.Windows.Forms.DataGridViewTextBoxColumn project_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn fam_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dpt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewTextBoxColumn issuesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn actionsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ownerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn departement_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn duedateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
     }
 }
