@@ -33,7 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.DownloadPDF = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,7 +67,7 @@
             this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.DownloadPDF);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -99,18 +99,19 @@
             this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // DownloadPDF
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button2.Location = new System.Drawing.Point(19, 371);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 84);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Download";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button2.UseVisualStyleBackColor = true;
+            this.DownloadPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DownloadPDF.Image = ((System.Drawing.Image)(resources.GetObject("DownloadPDF.Image")));
+            this.DownloadPDF.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.DownloadPDF.Location = new System.Drawing.Point(19, 371);
+            this.DownloadPDF.Name = "DownloadPDF";
+            this.DownloadPDF.Size = new System.Drawing.Size(240, 84);
+            this.DownloadPDF.TabIndex = 2;
+            this.DownloadPDF.Text = "Download";
+            this.DownloadPDF.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.DownloadPDF.UseVisualStyleBackColor = true;
+            this.DownloadPDF.Click += new System.EventHandler(this.DownloadPDF_Click);
             // 
             // button1
             // 
@@ -333,7 +334,7 @@
         private System.Windows.Forms.BindingSource roadblocksBindingSource;
         private BoardDBDataSet1TableAdapters.RoadblocksTableAdapter roadblocksTableAdapter;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button DownloadPDF;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboBox3;

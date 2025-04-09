@@ -135,7 +135,7 @@
         rkJggg==
 </value>
   </data>
-  <data name="button2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DownloadPDF.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DgAACw4BQL7hQQAAAz9JREFUaEPtlt9Lk2EUx73rXwi66hcVFEUXFf2kUJO6MzLdTMVtipKEGkElGGVh
@@ -172,6 +172,9 @@
         N/kD77j8rPLJYtYSW1c5d2PW09Mzk3+jYGvHTSIMTQAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="roadblocksBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>198, 17</value>
+  </metadata>
   <metadata name="roadblocksBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>198, 17</value>
   </metadata>
