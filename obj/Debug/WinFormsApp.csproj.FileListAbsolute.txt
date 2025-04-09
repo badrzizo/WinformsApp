@@ -16,3 +16,6 @@ C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.Ma
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBlockDepartement.resources
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\MaterialSkin.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinForms.79E25943.Up2Date
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.RoadsBlock.ManagerRoadsBlockFamily.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\C1.Win.4.6.2.dll
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\C1.Win.4.6.2.xml

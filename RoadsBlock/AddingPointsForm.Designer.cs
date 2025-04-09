@@ -312,6 +312,7 @@
             this.ClientSize = new System.Drawing.Size(800, 608);
             this.Controls.Add(this.groupBox1);
             this.Name = "AddingPointsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddingPointsForm";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -60,11 +60,36 @@ namespace WinFormsApp.RoadsBlock
 
                     // Bind the result to the DataGridView
                     dataGridView1.DataSource = dataTable;
+
+                    // Hide the ID column
+                    dataGridView1.Columns["id"].Visible = false;
+
+                    // Attach the CellFormatting event handler
+                    dataGridView1.CellFormatting += DataGridView1_CellFormatting;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current column is the "status" column
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "status")
+            {
+                // Check the value in the cell and set the color accordingly
+                if (e.Value != null && e.Value.ToString() == "Open")
+                {
+                    e.CellStyle.BackColor = Color.Red;
+                    e.CellStyle.ForeColor = Color.White;
+                }
+                else if (e.Value != null && e.Value.ToString() == "Closed")
+                {
+                    e.CellStyle.BackColor = Color.Green;
+                    e.CellStyle.ForeColor = Color.White;
+                }
             }
         }
 

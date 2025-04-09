@@ -364,6 +364,8 @@ namespace WinFormsApp
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
 
+            
+
             // Legend Styling
             chart.Legends.Clear();
             Legend legend = new Legend
