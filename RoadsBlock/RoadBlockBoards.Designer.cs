@@ -39,27 +39,33 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxStatus = new System.Windows.Forms.ComboBox();
+            this.comboBoxFamily = new System.Windows.Forms.ComboBox();
+            this.comboBoxProject = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.roadblocksBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.boardDBDataSet4 = new WinFormsApp.BoardDBDataSet4();
             this.roadblocksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.boardDBDataSet1 = new WinFormsApp.BoardDBDataSet1();
             this.roadblocksTableAdapter = new WinFormsApp.BoardDBDataSet1TableAdapters.RoadblocksTableAdapter();
+            this.boardDBDataSet3 = new WinFormsApp.BoardDBDataSet3();
+            this.roadblocksBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.roadblocksTableAdapter1 = new WinFormsApp.BoardDBDataSet3TableAdapters.RoadblocksTableAdapter();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.project_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.issuesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.actionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departement_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.duedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.boardDBDataSet = new WinFormsApp.BoardDBDataSet();
+            this.boardDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.roadblocksTableAdapter2 = new WinFormsApp.BoardDBDataSet4TableAdapters.RoadblocksTableAdapter();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -132,9 +138,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.comboBox3);
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.comboBoxStatus);
+            this.groupBox1.Controls.Add(this.comboBoxFamily);
+            this.groupBox1.Controls.Add(this.comboBoxProject);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -170,52 +176,53 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Project";
             // 
-            // comboBox3
+            // comboBoxStatus
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(7, 207);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(234, 28);
-            this.comboBox3.TabIndex = 2;
+            this.comboBoxStatus.FormattingEnabled = true;
+            this.comboBoxStatus.Location = new System.Drawing.Point(7, 207);
+            this.comboBoxStatus.Name = "comboBoxStatus";
+            this.comboBoxStatus.Size = new System.Drawing.Size(234, 28);
+            this.comboBoxStatus.TabIndex = 2;
+            this.comboBoxStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatus_SelectedIndexChanged);
             // 
-            // comboBox2
+            // comboBoxFamily
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(7, 132);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(234, 28);
-            this.comboBox2.TabIndex = 1;
+            this.comboBoxFamily.FormattingEnabled = true;
+            this.comboBoxFamily.Location = new System.Drawing.Point(7, 132);
+            this.comboBoxFamily.Name = "comboBoxFamily";
+            this.comboBoxFamily.Size = new System.Drawing.Size(234, 28);
+            this.comboBoxFamily.TabIndex = 1;
+            this.comboBoxFamily.SelectedIndexChanged += new System.EventHandler(this.comboBoxFamily_SelectedIndexChanged);
             // 
-            // comboBox1
+            // comboBoxProject
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 55);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(234, 28);
-            this.comboBox1.TabIndex = 0;
+            this.comboBoxProject.FormattingEnabled = true;
+            this.comboBoxProject.Location = new System.Drawing.Point(7, 55);
+            this.comboBoxProject.Name = "comboBoxProject";
+            this.comboBoxProject.Size = new System.Drawing.Size(234, 28);
+            this.comboBoxProject.TabIndex = 0;
+            this.comboBoxProject.SelectedIndexChanged += new System.EventHandler(this.comboBoxProject_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.project_id,
-            this.fam_id,
-            this.issuesDataGridViewTextBoxColumn,
-            this.actionsDataGridViewTextBoxColumn,
-            this.ownerDataGridViewTextBoxColumn,
-            this.departement_name,
-            this.duedateDataGridViewTextBoxColumn,
-            this.status});
-            this.dataGridView1.DataSource = this.roadblocksBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(266, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1102, 743);
+            this.dataGridView1.Size = new System.Drawing.Size(1312, 743);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // roadblocksBindingSource2
+            // 
+            this.roadblocksBindingSource2.DataMember = "Roadblocks";
+            this.roadblocksBindingSource2.DataSource = this.boardDBDataSet4;
+            // 
+            // boardDBDataSet4
+            // 
+            this.boardDBDataSet4.DataSetName = "BoardDBDataSet4";
+            this.boardDBDataSet4.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // roadblocksBindingSource
             // 
@@ -231,6 +238,20 @@
             // 
             this.roadblocksTableAdapter.ClearBeforeFill = true;
             // 
+            // boardDBDataSet3
+            // 
+            this.boardDBDataSet3.DataSetName = "BoardDBDataSet3";
+            this.boardDBDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // roadblocksBindingSource1
+            // 
+            this.roadblocksBindingSource1.DataMember = "Roadblocks";
+            this.roadblocksBindingSource1.DataSource = this.boardDBDataSet3;
+            // 
+            // roadblocksTableAdapter1
+            // 
+            this.roadblocksTableAdapter1.ClearBeforeFill = true;
+            // 
             // id
             // 
             this.id.DataPropertyName = "id";
@@ -240,88 +261,43 @@
             this.id.ReadOnly = true;
             this.id.Width = 125;
             // 
-            // project_id
+            // boardDBDataSet
             // 
-            this.project_id.DataPropertyName = "project_name";
-            this.project_id.HeaderText = "Project";
-            this.project_id.MinimumWidth = 6;
-            this.project_id.Name = "project_id";
-            this.project_id.Width = 125;
+            this.boardDBDataSet.DataSetName = "BoardDBDataSet";
+            this.boardDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // fam_id
+            // boardDBDataSetBindingSource
             // 
-            this.fam_id.DataPropertyName = "family_name";
-            this.fam_id.HeaderText = "Family";
-            this.fam_id.MinimumWidth = 6;
-            this.fam_id.Name = "fam_id";
-            this.fam_id.Width = 125;
+            this.boardDBDataSetBindingSource.DataSource = this.boardDBDataSet;
+            this.boardDBDataSetBindingSource.Position = 0;
             // 
-            // issuesDataGridViewTextBoxColumn
+            // roadblocksTableAdapter2
             // 
-            this.issuesDataGridViewTextBoxColumn.DataPropertyName = "issues";
-            this.issuesDataGridViewTextBoxColumn.HeaderText = "issues";
-            this.issuesDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.issuesDataGridViewTextBoxColumn.Name = "issuesDataGridViewTextBoxColumn";
-            this.issuesDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // actionsDataGridViewTextBoxColumn
-            // 
-            this.actionsDataGridViewTextBoxColumn.DataPropertyName = "actions";
-            this.actionsDataGridViewTextBoxColumn.HeaderText = "actions";
-            this.actionsDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.actionsDataGridViewTextBoxColumn.Name = "actionsDataGridViewTextBoxColumn";
-            this.actionsDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // ownerDataGridViewTextBoxColumn
-            // 
-            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "owner";
-            this.ownerDataGridViewTextBoxColumn.HeaderText = "owner";
-            this.ownerDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
-            this.ownerDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // departement_name
-            // 
-            this.departement_name.DataPropertyName = "departement_name";
-            this.departement_name.HeaderText = "Departement";
-            this.departement_name.MinimumWidth = 6;
-            this.departement_name.Name = "departement_name";
-            this.departement_name.Width = 125;
-            // 
-            // duedateDataGridViewTextBoxColumn
-            // 
-            this.duedateDataGridViewTextBoxColumn.DataPropertyName = "due_date";
-            this.duedateDataGridViewTextBoxColumn.HeaderText = "due_date";
-            this.duedateDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.duedateDataGridViewTextBoxColumn.Name = "duedateDataGridViewTextBoxColumn";
-            this.duedateDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "status";
-            this.status.MinimumWidth = 6;
-            this.status.Name = "status";
-            this.status.Width = 125;
+            this.roadblocksTableAdapter2.ClearBeforeFill = true;
             // 
             // RoadBlockBoards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1368, 743);
+            this.ClientSize = new System.Drawing.Size(1578, 743);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Name = "RoadBlockBoards";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RoadBlockBoards";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.RoadBlockBoards_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -337,21 +313,24 @@
         private System.Windows.Forms.Button DownloadPDF;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxStatus;
+        private System.Windows.Forms.ComboBox comboBoxFamily;
+        private System.Windows.Forms.ComboBox comboBoxProject;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn project_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn fam_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn issuesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actionsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ownerDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn departement_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn duedateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private BoardDBDataSet3 boardDBDataSet3;
+        private System.Windows.Forms.BindingSource roadblocksBindingSource1;
+        private BoardDBDataSet3TableAdapters.RoadblocksTableAdapter roadblocksTableAdapter1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.BindingSource boardDBDataSetBindingSource;
+        private BoardDBDataSet boardDBDataSet;
+        private BoardDBDataSet4 boardDBDataSet4;
+        private System.Windows.Forms.BindingSource roadblocksBindingSource2;
+        private BoardDBDataSet4TableAdapters.RoadblocksTableAdapter roadblocksTableAdapter2;
     }
 }

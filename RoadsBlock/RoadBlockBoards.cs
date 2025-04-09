@@ -21,12 +21,6 @@ namespace WinFormsApp.RoadsBlock
             this.Load += RoadBlockBoards_Load1;
         }
 
-        private void RoadBlockBoards_Load(object sender, EventArgs e)
-        {
-            // TODO: cette ligne de code charge les données dans la table 'boardDBDataSet1.Roadblocks'. Vous pouvez la déplacer ou la supprimer selon les besoins.
-            //this.roadblocksTableAdapter.Fill(this.boardDBDataSet1.Roadblocks);
-
-        }
         private void RoadBlockBoards_Load1(object sender, EventArgs e)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
@@ -64,8 +58,42 @@ namespace WinFormsApp.RoadsBlock
                     // Hide the ID column
                     dataGridView1.Columns["id"].Visible = false;
 
+                    // Set the column names
+                    dataGridView1.Columns["project_name"].HeaderText = "Project";
+                    dataGridView1.Columns["family_name"].HeaderText = "Family";
+                    dataGridView1.Columns["departement_name"].HeaderText = "Department";
+                    dataGridView1.Columns["status"].HeaderText = "Status";
+                    dataGridView1.Columns["issues"].HeaderText = "Issues";
+                    dataGridView1.Columns["actions"].HeaderText = "Actions";
+                    dataGridView1.Columns["owner"].HeaderText = "Owner";
+                    dataGridView1.Columns["due_date"].HeaderText = "Due Date";
+
+                    // Set the width of the columns
+                    dataGridView1.Columns["project_name"].Width = 100;
+                    dataGridView1.Columns["family_name"].Width = 100;
+                    dataGridView1.Columns["departement_name"].Width = 100;
+                    dataGridView1.Columns["status"].Width = 100;
+                    dataGridView1.Columns["issues"].Width = 100;
+                    dataGridView1.Columns["actions"].Width = 100;
+                    dataGridView1.Columns["owner"].Width = 100;
+                    dataGridView1.Columns["due_date"].Width = 100;
+
+
+                    // Reorder columns if needed
+                    dataGridView1.Columns["project_name"].DisplayIndex = 0;
+                    dataGridView1.Columns["family_name"].DisplayIndex = 1;
+                    dataGridView1.Columns["departement_name"].DisplayIndex = 2;
+                    dataGridView1.Columns["status"].DisplayIndex = 7;
+                    dataGridView1.Columns["issues"].DisplayIndex = 3;
+                    dataGridView1.Columns["actions"].DisplayIndex = 4;
+                    dataGridView1.Columns["owner"].DisplayIndex = 5;
+                    dataGridView1.Columns["due_date"].DisplayIndex = 6;
+
+
                     // Attach the CellFormatting event handler
                     dataGridView1.CellFormatting += DataGridView1_CellFormatting;
+
+
                 }
             }
             catch (Exception ex)
@@ -90,6 +118,11 @@ namespace WinFormsApp.RoadsBlock
                     e.CellStyle.BackColor = Color.Green;
                     e.CellStyle.ForeColor = Color.White;
                 }
+                else if(e.Value != null && e.Value.ToString() == "Ongoing")
+                {
+                    e.CellStyle.BackColor = Color.Orange;
+                    e.CellStyle.ForeColor = Color.Black;
+                }
             }
         }
 
@@ -102,6 +135,21 @@ namespace WinFormsApp.RoadsBlock
         }
 
         private void DownloadPDF_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxFamily_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

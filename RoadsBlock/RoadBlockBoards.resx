@@ -121,7 +121,7 @@
   <data name="button3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAAnZJREFUaEPtmUtrU1EURjtPRxHS9AcU6UUQQcytYqOCJDoRjYgW6kBsLQqaVCm1
+        DAAACwwBP0AiyAAAAnZJREFUaEPtmUtrU1EURjtPRxHS9AcU6UUQQcytYqOCJDoRjYgW6kBsLQqaVCm1
         g1pRwVcgiladiB1ZwVFAraJgxBdiURRU8FHrQMQHSbSEkjTZco8Y5DuC2fu2eoWzYE1OTmB93CST1NUZ
         DAbDf0kgFesKpGL5wLG1xLX51h6+mf68lenfgh1ipPHiAT/MYYcYjOL4m7CaxQ4xGMURozhihxiM4ohR
         HLFDDEZxxCiO2CEGozhiFEfsEINRHDGKI3Zo+BJ23JewJ+q7bXLlrhby74tq8X9jgPv4n+60qX5guWbj
@@ -138,7 +138,7 @@
   <data name="DownloadPDF.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAAz9JREFUaEPtlt9Lk2EUx73rXwi66hcVFEUXFf2kUJO6MzLdTMVtipKEGkElGGVh
+        DAAACwwBP0AiyAAAAz9JREFUaEPtlt9Lk2EUx73rXwi66hcVFEUXFf2kUJO6MzLdTMVtipKEGkElGGVh
         XaQX/SKykKIgIbzQCgtCCsM7C5PAUDFriZihpHOrfePZk7qdM7fnged9NPALH7Z37+Gc73d7z/suJWVJ
         S3JWOLYKjpC1spbOckRssAHCJbvkexsh6HAThD51IVy6Wx47HYION0Fo2G8vBB1ugkgAWyHocBPMBrAR
         gg43QUwAp0PQ4SZgAZwMQYebgJl3MgQdbgJm3MkQdLgJmGlKVAjqR1t0uG2oH23RhrahfrRFG9qG+tEW
@@ -158,7 +158,7 @@
   <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAAp1JREFUaEPtmb1uE0EQxyO+Cko+Kj5eIiKCKh2KNItmrjiBoOcVQGncBfoQQcQb
+        DAAACwwBP0AiyAAAAp1JREFUaEPtmb1uE0EQxyO+Cko+Kj5eIiKCKh2KNItmrjiBoOcVQGncBfoQQcQb
         GN2s5AANBc8AggeApAKSmtCA5uw0//UZ795HbOl+0l+yNNqZv6273dnxykpPT09t8mF+1qncIc+bznNB
         Kl+dypHz/KeUyhGpfCljnjfvFdntwWBwBvN0Dnu+4VSeO5UD5+VvnHifPD/bKLLrmLd1Nob5Vedllzwf
         h8biZDnI80s3clewTis4zw+d50M0Ulfk+RcV2QOs1xiru4/Pk8prLNy0SOWV1cL6tXAjd5E8v8dirUnl
@@ -172,20 +172,38 @@
         N/kD77j8rPLJYtYSW1c5d2PW09Mzk3+jYGvHTSIMTQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="roadblocksBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>198, 17</value>
+  <metadata name="roadblocksBindingSource2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 58</value>
+  </metadata>
+  <metadata name="boardDBDataSet4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1739, 17</value>
   </metadata>
   <metadata name="roadblocksBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>198, 17</value>
-  </metadata>
-  <metadata name="boardDBDataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
   </metadata>
   <metadata name="boardDBDataSet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="roadblocksTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>427, 17</value>
+  </metadata>
+  <metadata name="boardDBDataSet3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>649, 17</value>
+  </metadata>
+  <metadata name="roadblocksBindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>830, 17</value>
+  </metadata>
+  <metadata name="roadblocksTableAdapter1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1067, 17</value>
+  </metadata>
+  <metadata name="boardDBDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1297, 17</value>
+  </metadata>
+  <metadata name="boardDBDataSetBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1470, 17</value>
+  </metadata>
+  <metadata name="roadblocksTableAdapter2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>254, 58</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
