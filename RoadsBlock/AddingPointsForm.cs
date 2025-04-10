@@ -65,7 +65,10 @@ namespace WinFormsApp.RoadsBlock
                 DataRowView selectedRow = comboBoxProject.SelectedItem as DataRowView;
 
                 // Extract the project name from the DataRowView
-                string selectedProject = selectedRow["project_name"].ToString();
+                string selectedProject = selectedRow["project_name"].ToString(); // Use correct column name
+
+                // Debugging: Show the selected project name
+                MessageBox.Show($"Selected Project: {selectedProject}");
 
                 if (!string.IsNullOrEmpty(selectedProject))
                 {
@@ -75,12 +78,14 @@ namespace WinFormsApp.RoadsBlock
         }
 
 
+
+
         private void LoadFamiliesForProject(string projectName)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
             comboBoxFam.Items.Clear(); // Clear existing items in comboBoxFam
 
-            
+
 
             // Get family names related to the selected project
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -149,7 +154,7 @@ namespace WinFormsApp.RoadsBlock
             string issues = textBoxIssues.Text.Trim();
             string actions = textBoxActions.Text.Trim();
             string owner = textBoxOwner.Text.Trim();
-            string dueDate = dateTimePickerDueDate.Value.ToString("yyyy-MM-dd");
+            DateTime dueDate = dateTimePickerDueDate.Value; // Corrected to use DateTime instead of string
 
             // Validate required fields
             if (string.IsNullOrEmpty(project) || string.IsNullOrEmpty(fam) ||
@@ -160,7 +165,7 @@ namespace WinFormsApp.RoadsBlock
             }
 
             // Insert data into database
-            InsertRoadblock(project, fam, dpt, status, issues, actions, owner, dueDate);
+            InsertRoadblock(project, fam, dpt, status, issues, actions, owner, dueDate); // Pass DateTime directly
 
             // Notify parent form (Roadblocks) that data has been inserted
             this.DialogResult = DialogResult.OK; // Will be used in the parent form
@@ -170,31 +175,188 @@ namespace WinFormsApp.RoadsBlock
         }
 
         private void InsertRoadblock(string project, string fam, string dpt, string status,
-                            string issues, string actions, string owner, string dueDate)
+                    string issues, string actions, string owner, DateTime dueDate)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
 
+            try
+            {
+                // Fetch the IDs first
+                int projectId = GetProjectId(project);
+                int famId = GetFamilyId(fam);
+                int dptId = GetDepartmentId(dpt);
+
+                // Validate all required IDs were found
+                if (projectId == -1 || famId == -1 || dptId == -1)
+                {
+                    MessageBox.Show("Invalid project, family or department selection",
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validate required text fields
+                if (string.IsNullOrWhiteSpace(issues))
+                {
+                    MessageBox.Show("Issues field cannot be empty", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(actions))
+                {
+                    MessageBox.Show("Actions field cannot be empty", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(owner))
+                {
+                    MessageBox.Show("Owner field cannot be empty", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO Roadblocks 
+                           (project_id, fam_id, dpt_id, status, issues, actions, owner, due_date) 
+                           VALUES (@ProjectId, @FamId, @DptId, @Status, @Issues, @Actions, @Owner, @DueDate)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                        cmd.Parameters.AddWithValue("@FamId", famId);
+                        cmd.Parameters.AddWithValue("@DptId", dptId);
+
+                        // Status is the only nullable field
+                        if (string.IsNullOrWhiteSpace(status))
+                            cmd.Parameters.AddWithValue("@Status", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@Status", status);
+
+                        // Required fields
+                        cmd.Parameters.AddWithValue("@Issues", issues);
+                        cmd.Parameters.AddWithValue("@Actions", actions);
+                        cmd.Parameters.AddWithValue("@Owner", owner);
+                        cmd.Parameters.AddWithValue("@DueDate", dueDate.Date); // Ensure only date part is used
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Roadblock added successfully!", "Success",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add roadblock", "Error",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                // Handle specific SQL errors
+                if (sqlEx.Number == 547) // Foreign key violation
+                {
+                    MessageBox.Show("Invalid project, family or department reference",
+                                  "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show($"Database error: {sqlEx.Message}", "Database Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private int GetProjectId(string projectName)
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "INSERT INTO Roadblocks (project, fam, dpt, status, issues, actions, owner, due_date) " +
-                               "VALUES (@Project, @Fam, @Dpt, @Status, @Issues, @Actions, @Owner, @DueDate)";
-
+                string query = "SELECT id FROM Project WHERE project_name = @ProjectName";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Project", project);
-                    cmd.Parameters.AddWithValue("@Fam", fam);
-                    cmd.Parameters.AddWithValue("@Dpt", dpt);
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    cmd.Parameters.AddWithValue("@Issues", issues);
-                    cmd.Parameters.AddWithValue("@Actions", actions);
-                    cmd.Parameters.AddWithValue("@Owner", owner);
-                    cmd.Parameters.AddWithValue("@DueDate", dueDate);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@ProjectName", projectName);
+                    var result = cmd.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show($"Project '{projectName}' not found in the database.");
+                        return -1; // Return -1 if not found
+                    }
+
+                    // Debugging: Show the query result
+                    MessageBox.Show($"Project '{projectName}' found with ID: {result}");
+
+                    return Convert.ToInt32(result);
                 }
             }
-
-            MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
+        private int GetFamilyId(string familyName)
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id FROM Family WHERE family_name = @FamilyName";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FamilyName", familyName);
+                    var result = cmd.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show($"Family '{familyName}' not found in the database.");
+                        return -1; // Return -1 if not found
+                    }
+
+                    // Debugging: Show the query result
+                    MessageBox.Show($"Family '{familyName}' found with ID: {result}");
+
+                    return Convert.ToInt32(result);
+                }
+            }
+        }
+
+
+        private int GetDepartmentId(string departmentName)
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT id FROM Department WHERE departement_name = @DepartmentName";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DepartmentName", departmentName);
+                    var result = cmd.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show($"Department '{departmentName}' not found in the database.");
+                        return -1; // Return -1 if not found
+                    }
+
+                    // Debugging: Show the query result
+                    MessageBox.Show($"Department '{departmentName}' found with ID: {result}");
+
+                    return Convert.ToInt32(result);
+                }
+            }
+        }
+
     }
 }

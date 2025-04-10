@@ -55,7 +55,11 @@
             this.boardDBDataSet = new WinFormsApp.BoardDBDataSet();
             this.boardDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.roadblocksTableAdapter2 = new WinFormsApp.BoardDBDataSet4TableAdapters.RoadblocksTableAdapter();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roadblocksBindingSource2)).BeginInit();
@@ -79,15 +83,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(266, 743);
+            this.panel1.Size = new System.Drawing.Size(266, 799);
             this.panel1.TabIndex = 0;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(19, 580);
+            this.groupBox2.Location = new System.Drawing.Point(19, 565);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(234, 151);
+            this.groupBox2.Size = new System.Drawing.Size(234, 189);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Total Points";
@@ -211,7 +218,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1312, 743);
+            this.dataGridView1.Size = new System.Drawing.Size(1312, 799);
             this.dataGridView1.TabIndex = 1;
             // 
             // roadblocksBindingSource2
@@ -275,11 +282,41 @@
             // 
             this.roadblocksTableAdapter2.ClearBeforeFill = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 20);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Closed : ";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 91);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 20);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Open :";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 20);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Ongoing :";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
             // RoadBlockBoards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1578, 743);
+            this.ClientSize = new System.Drawing.Size(1578, 799);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Name = "RoadBlockBoards";
@@ -287,6 +324,8 @@
             this.Text = "RoadBlockBoards";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -332,5 +371,8 @@
         private BoardDBDataSet4 boardDBDataSet4;
         private System.Windows.Forms.BindingSource roadblocksBindingSource2;
         private BoardDBDataSet4TableAdapters.RoadblocksTableAdapter roadblocksTableAdapter2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }
