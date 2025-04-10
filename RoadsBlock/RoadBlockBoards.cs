@@ -18,6 +18,10 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using ClosedXML.Excel;
 using System.Collections.Generic;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System.Windows.Forms.DataVisualization.Charting;
+
 
 
 
@@ -35,6 +39,16 @@ namespace WinFormsApp.RoadsBlock
         private void RoadBlockBoards_Load1(object sender, EventArgs e)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+
+            if (!dataGridView1.Columns.Contains("Delete"))
+            {
+                DataGridViewButtonColumn deleteButtonColumn = new DataGridViewButtonColumn();
+                deleteButtonColumn.Name = "Delete";  // Make sure the column name is "Delete"
+                deleteButtonColumn.HeaderText = "Delete";
+                deleteButtonColumn.Text = "Delete";
+                deleteButtonColumn.UseColumnTextForButtonValue = true;
+                dataGridView1.Columns.Add(deleteButtonColumn);
+            }
 
             // Query to get the total number of roadblocks for each status (Open, Closed, Ongoing)
             string countQuery = @"
@@ -124,6 +138,8 @@ namespace WinFormsApp.RoadsBlock
                     dataGridView1.Columns["owner"].DisplayIndex = 5;
                     dataGridView1.Columns["due_date"].DisplayIndex = 6;
 
+                   
+
                     // Set the header column color after the DataGridView is populated
                     SetColumnHeaderStyle();
 
@@ -147,6 +163,37 @@ namespace WinFormsApp.RoadsBlock
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void DeleteRoadblockFromDatabase(int idToDelete)
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+
+            try
+            {
+                // Establish connection with the database
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Query to delete the record
+                    string deleteQuery = "DELETE FROM Roadblocks WHERE id = @Id";
+
+                    // Execute the delete command
+                    using (SqlCommand cmd = new SqlCommand(deleteQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", idToDelete);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors during the database operation
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -319,102 +366,136 @@ namespace WinFormsApp.RoadsBlock
             }
         }
 
-        private void ExportDataGridViewToPdf(DataGridView dgv, string filePath)
+        private void ExportDataGridViewToPdf_PdfSharp(DataGridView dgv, string filePath)
         {
             try
             {
-                int visibleColumns = dgv.Columns.Cast<DataGridViewColumn>().Count(c => c.Visible);
-                if (visibleColumns == 0)
+                using (PdfSharp.Pdf.PdfDocument pdf = new PdfSharp.Pdf.PdfDocument())
                 {
-                    MessageBox.Show("No visible columns to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    PdfSharp.Pdf.PdfPage page = pdf.AddPage();
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+                    XFont headerFont = new XFont("Arial", 12, XFontStyleEx.Bold);
+                    XFont cellFont = new XFont("Arial", 10);
 
-                // 🧠 Fix: Delete the file if it already exists to avoid lock/write error
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
+                    // Reorder columns in the same order as DisplayIndex
+                    var columnsInOrder = new List<DataGridViewColumn>();
+                    columnsInOrder.Add(dgv.Columns["project_name"]);
+                    columnsInOrder.Add(dgv.Columns["family_name"]);
+                    columnsInOrder.Add(dgv.Columns["departement_name"]);
+                    columnsInOrder.Add(dgv.Columns["issues"]);
+                    columnsInOrder.Add(dgv.Columns["actions"]);
+                    columnsInOrder.Add(dgv.Columns["owner"]);
+                    columnsInOrder.Add(dgv.Columns["due_date"]);
+                    columnsInOrder.Add(dgv.Columns["status"]);
 
-                using (PdfWriter writer = new PdfWriter(filePath))
-                {
-                    PdfDocument pdf = new PdfDocument(writer);
-                    Document doc = new Document(pdf);
+                    float x = 20;
+                    float y = 50;
+                    float cellHeight = 20;
+                    float totalWidth = 0;
+                    Dictionary<string, float> columnWidths = new Dictionary<string, float>();
 
-                    PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-                    PdfFont fontNormal = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
-
-                    Paragraph title = new Paragraph("Roadblocks Report")
-                        .SetFont(font)
-                        .SetFontSize(18)
-                        .SetTextAlignment(TextAlignment.CENTER)
-                        .SetMarginBottom(20);
-                    doc.Add(title);
-
-                    Table table = new Table(UnitValue.CreatePercentArray(visibleColumns)).UseAllAvailableWidth();
-
-                    foreach (DataGridViewColumn column in dgv.Columns)
+                    // Calculate column widths
+                    foreach (var column in columnsInOrder)
                     {
                         if (!column.Visible) continue;
-                        table.AddHeaderCell(new Cell()
-                            .Add(new Paragraph(column.HeaderText).SetFont(font))
-                            .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                            .SetTextAlignment(TextAlignment.CENTER)
-                            .SetPadding(5));
+                        float width = (float)(gfx.MeasureString(column.HeaderText, headerFont).Width + 10);
+                        foreach (DataGridViewRow row in dgv.Rows)
+                        {
+                            if (row.IsNewRow) continue;
+                            string cellValue = row.Cells[column.Name].Value?.ToString() ?? "";
+                            float cellWidth = (float)(gfx.MeasureString(cellValue, cellFont).Width + 10);
+                            width = Math.Max(width, cellWidth);
+                        }
+                        columnWidths[column.Name] = width;
+                        totalWidth += width;
                     }
 
+                    // Adjust page width if needed
+                    if (totalWidth > page.Width - 40)
+                    {
+                        // Handle case where content is wider than the page (e.g., scale or adjust font)
+                        MessageBox.Show("Data width exceeds page width. PDF output may be truncated.");
+                    }
+
+                    // Draw headers
+                    foreach (var column in columnsInOrder)
+                    {
+                        if (!column.Visible) continue;
+                        XBrush headerBrush = XBrushes.Blue;
+                        gfx.DrawRectangle(headerBrush, x, y, columnWidths[column.Name], cellHeight);
+                        gfx.DrawString(column.HeaderText, headerFont, XBrushes.White, new XRect(x, y, columnWidths[column.Name], cellHeight), XStringFormats.Center);
+                        x += columnWidths[column.Name];
+                    }
+
+                    y += cellHeight;
+                    x = 20;
+
+                    // Draw data
                     foreach (DataGridViewRow row in dgv.Rows)
                     {
                         if (row.IsNewRow) continue;
-
-                        foreach (DataGridViewColumn column in dgv.Columns)
+                        x = 20;
+                        foreach (var column in columnsInOrder)
                         {
                             if (!column.Visible) continue;
+                            string cellValue = row.Cells[column.Name].Value?.ToString() ?? "";
+                            XBrush cellBrush = XBrushes.Black; // Default brush
 
-                            string value = row.Cells[column.Name].Value?.ToString() ?? "";
+                            // Apply color based on "status" column
+                            if (column.Name == "status")
+                            {
+                                if (cellValue == "Open") cellBrush = XBrushes.Red;
+                                else if (cellValue == "Closed") cellBrush = XBrushes.Green;
+                                else if (cellValue == "Ongoing") cellBrush = XBrushes.Orange;
+                            }
 
-                            table.AddCell(new Cell()
-                                .Add(new Paragraph(value).SetFont(fontNormal))
-                                .SetTextAlignment(TextAlignment.LEFT)
-                                .SetPadding(4));
+                            gfx.DrawString(cellValue, cellFont, cellBrush, new XRect(x, y, columnWidths[column.Name], cellHeight), XStringFormats.Center);
+                            x += columnWidths[column.Name];
+                        }
+                        y += cellHeight;
+
+                        // Add new page if needed
+                        if (y > page.Height - 50)
+                        {
+                            page = pdf.AddPage();
+                            gfx = XGraphics.FromPdfPage(page);
+                            y = 50; // Reset y for new page
+                            x = 20;
+                            // Redraw headers on new page
+                            foreach (var column in columnsInOrder)
+                            {
+                                if (!column.Visible) continue;
+                                XBrush headerBrush = XBrushes.Blue;
+                                gfx.DrawRectangle(headerBrush, x, y - cellHeight, columnWidths[column.Name], cellHeight);
+                                gfx.DrawString(column.HeaderText, headerFont, XBrushes.White, new XRect(x, y - cellHeight, columnWidths[column.Name], cellHeight), XStringFormats.Center);
+                                x += columnWidths[column.Name];
+                            }
+                            y += cellHeight;
                         }
                     }
 
-                    doc.Add(table);
-                    doc.Close();
+                    pdf.Save(filePath);
+                    MessageBox.Show($"PDF file saved successfully at:\n{filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                MessageBox.Show("PDF generated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (PdfException ex)
-            {
-                MessageBox.Show($"PDF Exception:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}", "PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"General Exception:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to export PDF:\n" + ex.Message);
             }
         }
 
-
-
-
-
         private void DownloadPDF_Click(object sender, EventArgs e)
-{
-    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Roadblocks_Report_" + DateTime.Now.Ticks + ".pdf");
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            saveFileDialog.FileName = $"Roadblocks_Report_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            saveFileDialog.Title = "Save PDF File";
 
-    try
-    {
-        ExportDataGridViewToPdf(dataGridView1, path);
-        MessageBox.Show("PDF saved successfully:\n" + path, "Success");
-        System.Diagnostics.Process.Start("explorer.exe", path); // Optional: open file after creation
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show("Failed to export PDF:\n" + ex.Message);
-    }
-}
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportDataGridViewToPdf_PdfSharp(dataGridView1, saveFileDialog.FileName);
+            }
+        }
 
 
 
@@ -554,5 +635,41 @@ namespace WinFormsApp.RoadsBlock
                 MessageBox.Show("Failed to export Excel:\n" + ex.Message);
             }
         }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the clicked column is the "Delete" button
+            // Ensure that column exists before accessing it
+            if (e.ColumnIndex >= 0 && dataGridView1.Columns.Contains("Delete") &&
+                e.ColumnIndex == dataGridView1.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                // Get the "ID" value of the row clicked (make sure the 'id' column exists)
+                var idCell = dataGridView1.Rows[e.RowIndex].Cells["id"];
+                if (idCell != null && idCell.Value != DBNull.Value)
+                {
+                    int idToDelete = Convert.ToInt32(idCell.Value);
+
+                    // Ask for confirmation before deletion
+                    if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Call the method to delete from the database
+                        DeleteRoadblockFromDatabase(idToDelete);
+
+                        // Reload data after deletion
+                        RoadBlockBoards_Load1(this, EventArgs.Empty);
+                        UpdateCounts();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ID not found in the row.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid column or row clicked.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
