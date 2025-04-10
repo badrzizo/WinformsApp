@@ -32,7 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoadBlockBoards));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.buttonDownloadExcel = new System.Windows.Forms.Button();
             this.DownloadPDF = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -55,9 +58,6 @@
             this.boardDBDataSet = new WinFormsApp.BoardDBDataSet();
             this.boardDBDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.roadblocksTableAdapter2 = new WinFormsApp.BoardDBDataSet4TableAdapters.RoadblocksTableAdapter();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -76,7 +76,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.buttonDownloadExcel);
             this.panel1.Controls.Add(this.DownloadPDF);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.groupBox1);
@@ -99,18 +99,49 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Total Points";
             // 
-            // button3
+            // label6
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.Location = new System.Drawing.Point(19, 461);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(240, 82);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Download";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 20);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Ongoing :";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 91);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 20);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Open :";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 20);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Closed : ";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // buttonDownloadExcel
+            // 
+            this.buttonDownloadExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDownloadExcel.Image = ((System.Drawing.Image)(resources.GetObject("buttonDownloadExcel.Image")));
+            this.buttonDownloadExcel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonDownloadExcel.Location = new System.Drawing.Point(19, 461);
+            this.buttonDownloadExcel.Name = "buttonDownloadExcel";
+            this.buttonDownloadExcel.Size = new System.Drawing.Size(240, 82);
+            this.buttonDownloadExcel.TabIndex = 3;
+            this.buttonDownloadExcel.Text = "Download";
+            this.buttonDownloadExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonDownloadExcel.UseVisualStyleBackColor = true;
+            this.buttonDownloadExcel.Click += new System.EventHandler(this.buttonDownloadExcel_Click);
             // 
             // DownloadPDF
             // 
@@ -282,36 +313,6 @@
             // 
             this.roadblocksTableAdapter2.ClearBeforeFill = true;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 20);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Closed : ";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 91);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 20);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Open :";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 142);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 20);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Ongoing :";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
             // RoadBlockBoards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -348,7 +349,7 @@
         private BoardDBDataSet1 boardDBDataSet1;
         private System.Windows.Forms.BindingSource roadblocksBindingSource;
         private BoardDBDataSet1TableAdapters.RoadblocksTableAdapter roadblocksTableAdapter;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonDownloadExcel;
         private System.Windows.Forms.Button DownloadPDF;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;

@@ -1,22 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Exceptions;
+using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Kernel.Colors;
 using iText.Layout.Properties;
-using iText.IO.Font.Constants;
-using iText.Kernel.Font;
-using iText.Kernel.Exceptions;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using ClosedXML.Excel;
+using System.Collections.Generic;
+
+
 
 namespace WinFormsApp.RoadsBlock
 {
@@ -316,120 +319,102 @@ namespace WinFormsApp.RoadsBlock
             }
         }
 
-        private void DownloadPDF_Click(object sender, EventArgs e)
+        private void ExportDataGridViewToPdf(DataGridView dgv, string filePath)
         {
-            // Configure save file dialog
-            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            try
             {
-                saveDialog.Filter = "PDF files (*.pdf)|*.pdf";
-                saveDialog.Title = "Export Roadblocks to PDF";
-                saveDialog.FileName = $"Roadblocks_Export_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-
-                if (saveDialog.ShowDialog() == DialogResult.OK)
+                int visibleColumns = dgv.Columns.Cast<DataGridViewColumn>().Count(c => c.Visible);
+                if (visibleColumns == 0)
                 {
-                    try
-                    {
-                        // Initialize PDF writer with error handling
-                        using (PdfWriter writer = new PdfWriter(saveDialog.FileName))
-                        using (PdfDocument pdfDoc = new PdfDocument(writer))
-                        using (Document document = new Document(pdfDoc))
-                        {
-                            // Add report title
-                            document.Add(new Paragraph("ROADBLOCKS REPORT")
-                                .SetTextAlignment(TextAlignment.CENTER)
-                                .SetFontSize(18)
-                                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD)));
-
-                            // Add report date
-                            document.Add(new Paragraph($"Generated: {DateTime.Now.ToString("yyyy-MM-dd HH:mm")}")
-                                .SetTextAlignment(TextAlignment.CENTER)
-                                .SetFontSize(10)
-                                .SetMarginBottom(15));
-
-                            // Create data table
-                            Table table = new Table(dataGridView1.Columns.Count)
-                                .UseAllAvailableWidth()
-                                .SetMarginTop(10);
-
-                            // Add column headers
-                            foreach (DataGridViewColumn col in dataGridView1.Columns)
-                            {
-                                if (col.Visible)
-                                {
-                                    table.AddHeaderCell(new Cell()
-                                        .Add(new Paragraph(col.HeaderText))
-                                        .SetBackgroundColor(new DeviceRgb(0, 0, 139)) // Dark blue
-                                        .SetFontColor(DeviceRgb.WHITE)
-                                        .SetFontSize(10)
-                                        .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD))
-                                        .SetTextAlignment(TextAlignment.CENTER));
-                                }
-                            }
-
-                            // Add data rows
-                            foreach (DataGridViewRow row in dataGridView1.Rows)
-                            {
-                                if (!row.IsNewRow)
-                                {
-                                    foreach (DataGridViewCell cell in row.Cells)
-                                    {
-                                        if (cell.OwningColumn.Visible)
-                                        {
-                                            var cellValue = cell.Value?.ToString() ?? string.Empty;
-                                            var pdfCell = new Cell()
-                                                .Add(new Paragraph(cellValue))
-                                                .SetPadding(5)
-                                                .SetTextAlignment(TextAlignment.LEFT);
-
-                                            // Apply status colors
-                                            if (cell.OwningColumn.Name == "status")
-                                            {
-                                                switch (cellValue.ToUpper())
-                                                {
-                                                    case "OPEN":
-                                                        pdfCell.SetBackgroundColor(new DeviceRgb(220, 20, 60)) // Crimson
-                                                            .SetFontColor(DeviceRgb.WHITE);
-                                                        break;
-                                                    case "CLOSED":
-                                                        pdfCell.SetBackgroundColor(new DeviceRgb(50, 205, 50)) // LimeGreen
-                                                            .SetFontColor(DeviceRgb.WHITE);
-                                                        break;
-                                                    case "ONGOING":
-                                                        pdfCell.SetBackgroundColor(new DeviceRgb(255, 165, 0)); // Orange
-                                                break;
-                                                }
-                                            }
-
-                                            table.AddCell(pdfCell);
-                                        }
-                                    }
-                                }
-                            }
-
-                            document.Add(table);
-                        }
-
-                        MessageBox.Show("PDF exported successfully!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (PdfException pdfEx)
-                    {
-                        MessageBox.Show($"PDF Generation Error: {pdfEx.Message}\n\n" +
-                            "Please ensure:\n" +
-                            "1. The file isn't already open in another program\n" +
-                            "2. You have write permissions to the location\n" +
-                            "3. There's enough disk space",
-                            "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Unexpected Error: {ex.Message}",
-                            "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("No visible columns to export.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                // 🧠 Fix: Delete the file if it already exists to avoid lock/write error
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                using (PdfWriter writer = new PdfWriter(filePath))
+                {
+                    PdfDocument pdf = new PdfDocument(writer);
+                    Document doc = new Document(pdf);
+
+                    PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+                    PdfFont fontNormal = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+
+                    Paragraph title = new Paragraph("Roadblocks Report")
+                        .SetFont(font)
+                        .SetFontSize(18)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetMarginBottom(20);
+                    doc.Add(title);
+
+                    Table table = new Table(UnitValue.CreatePercentArray(visibleColumns)).UseAllAvailableWidth();
+
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        if (!column.Visible) continue;
+                        table.AddHeaderCell(new Cell()
+                            .Add(new Paragraph(column.HeaderText).SetFont(font))
+                            .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
+                            .SetTextAlignment(TextAlignment.CENTER)
+                            .SetPadding(5));
+                    }
+
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        foreach (DataGridViewColumn column in dgv.Columns)
+                        {
+                            if (!column.Visible) continue;
+
+                            string value = row.Cells[column.Name].Value?.ToString() ?? "";
+
+                            table.AddCell(new Cell()
+                                .Add(new Paragraph(value).SetFont(fontNormal))
+                                .SetTextAlignment(TextAlignment.LEFT)
+                                .SetPadding(4));
+                        }
+                    }
+
+                    doc.Add(table);
+                    doc.Close();
+                }
+
+                MessageBox.Show("PDF generated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (PdfException ex)
+            {
+                MessageBox.Show($"PDF Exception:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}", "PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"General Exception:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
+
+
+
+        private void DownloadPDF_Click(object sender, EventArgs e)
+{
+    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Roadblocks_Report_" + DateTime.Now.Ticks + ".pdf");
+
+    try
+    {
+        ExportDataGridViewToPdf(dataGridView1, path);
+        MessageBox.Show("PDF saved successfully:\n" + path, "Success");
+        System.Diagnostics.Process.Start("explorer.exe", path); // Optional: open file after creation
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Failed to export PDF:\n" + ex.Message);
+    }
+}
 
 
 
@@ -464,6 +449,110 @@ namespace WinFormsApp.RoadsBlock
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ExportDataGridViewToExcel(DataGridView dgv)
+        {
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Roadblocks");
+
+                // Reorder columns in the same order as DisplayIndex
+                var columnsInOrder = new List<DataGridViewColumn>();
+                columnsInOrder.Add(dgv.Columns["project_name"]);
+                columnsInOrder.Add(dgv.Columns["family_name"]);
+                columnsInOrder.Add(dgv.Columns["departement_name"]);
+                columnsInOrder.Add(dgv.Columns["issues"]);
+                columnsInOrder.Add(dgv.Columns["actions"]);
+                columnsInOrder.Add(dgv.Columns["owner"]);
+                columnsInOrder.Add(dgv.Columns["due_date"]);
+                columnsInOrder.Add(dgv.Columns["status"]);
+
+                // Adding headers with custom styles
+                int colIndex = 1;
+                foreach (var column in columnsInOrder)
+                {
+                    if (!column.Visible) continue;
+
+                    var headerCell = worksheet.Cell(1, colIndex);
+                    headerCell.Value = column.HeaderText;
+                    headerCell.Style.Font.Bold = true;
+                    headerCell.Style.Fill.BackgroundColor = XLColor.Blue;
+                    headerCell.Style.Font.FontColor = XLColor.White;
+                    headerCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    headerCell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    headerCell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    colIndex++;
+                }
+
+                // Adding data with formatting
+                int rowIndex = 2;
+                foreach (DataGridViewRow row in dgv.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    colIndex = 1;
+                    foreach (var column in columnsInOrder)
+                    {
+                        if (!column.Visible) continue;
+
+                        var cellValue = row.Cells[column.Name].Value?.ToString() ?? "";
+                        var excelCell = worksheet.Cell(rowIndex, colIndex);
+                        excelCell.Value = cellValue;
+
+                        // Apply background color and text color based on the DataGridView cell styles
+                        var cellStyle = row.Cells[column.Name].Style;
+                        if (column.Name == "status") // Example: Apply different formatting to the "status" column
+                        {
+                            if (cellValue == "Open")
+                            {
+                                excelCell.Style.Fill.BackgroundColor = XLColor.Red;
+                                excelCell.Style.Font.FontColor = XLColor.White;
+                            }
+                            else if (cellValue == "Closed")
+                            {
+                                excelCell.Style.Fill.BackgroundColor = XLColor.Green;
+                                excelCell.Style.Font.FontColor = XLColor.White;
+                            }
+                            else if (cellValue == "Ongoing")
+                            {
+                                excelCell.Style.Fill.BackgroundColor = XLColor.Orange;
+                                excelCell.Style.Font.FontColor = XLColor.Black;
+                            }
+                        }
+
+                        // Apply text alignment from DataGridView style
+                        excelCell.Style.Alignment.Horizontal = (cellStyle.Alignment == DataGridViewContentAlignment.MiddleCenter) ?
+                                                                XLAlignmentHorizontalValues.Center : XLAlignmentHorizontalValues.Left;
+
+                        excelCell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        colIndex++;
+                    }
+                    rowIndex++;
+                }
+
+                // Auto-fit columns and save the file
+                worksheet.Columns().AdjustToContents();
+
+                // Save the file
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Roadblocks_Report_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
+                workbook.SaveAs(filePath);
+                MessageBox.Show($"Excel file saved successfully at:\n{filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
+        private void buttonDownloadExcel_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                ExportDataGridViewToExcel(dataGridView1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to export Excel:\n" + ex.Message);
+            }
         }
     }
 }
