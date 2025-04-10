@@ -40,7 +40,8 @@ namespace WinFormsApp
             {
                 Dock = DockStyle.Fill, // Make the TableLayoutPanel fill the form
                 RowCount = 2,
-                ColumnCount = 2
+                ColumnCount = 2,
+                Padding = new Padding(20) // Add padding around the TableLayoutPanel
             };
 
             // Adjust the sizes for the rows and columns
@@ -55,16 +56,21 @@ namespace WinFormsApp
             layoutPanel.Controls.Add(chart3, 0, 1); // Add chart3 to the bottom-left cell
             layoutPanel.Controls.Add(chart4, 1, 1); // Add chart4 to the bottom-right cell
 
-            // Set each chart to fill its assigned cell
+            // Set each chart to fill its assigned cell with margin for spacing
             chart1.Dock = DockStyle.Fill;
+            chart1.Margin = new Padding(10); // Add margin around the chart
+
             chart2.Dock = DockStyle.Fill;
-            chart3.Dock = DockStyle.Fill;
+            chart2.Margin = new Padding(10); // Add margin around the chart
+
+           
             chart4.Dock = DockStyle.Fill;
+            
 
             // Add the layout panel to the form
             this.Controls.Add(layoutPanel);
-
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -180,31 +186,32 @@ namespace WinFormsApp
         private void LoadChart1()
         {
             DataTable dataTable = GetOpenPointsByDepartment();
-
             chart1.Series.Clear();
 
-            LoadBarChart(chart1, dataTable, "Departement", "Open Issues", "Open Points By Department", Color.CornflowerBlue, Color.LightBlue);
-            ConfigureChart(chart1);
-
-            chart1.Series.Clear();
-            chart1.ChartAreas[0].AxisX.Title = "Department";
-            chart1.ChartAreas[0].AxisY.Title = "Open Issues";
-
-            Series series = new Series("Open Points By Dpt");
-            series.ChartType = SeriesChartType.Column;
-
-            series.Color = Color.CornflowerBlue;
-
-            series.Color = Color.CornflowerBlue;
+            Series series = new Series("Open Points By Dpt")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.CornflowerBlue,
+                IsValueShownAsLabel = true,
+                LabelForeColor = Color.Black,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
 
             foreach (DataRow row in dataTable.Rows)
             {
                 string department = row["departement_name"].ToString();
                 int count = Convert.ToInt32(row["OpenPoints"]);
                 series.Points.AddXY(department, count);
+                // Get the last added point and set its label
+                series.Points[series.Points.Count - 1].Label = count.ToString();
             }
 
             chart1.Series.Add(series);
+            ConfigureChart(chart1);
+            chart1.ChartAreas[0].AxisX.Title = "Department";
+            chart1.ChartAreas[0].AxisY.Title = "Open Issues";
+
+            LoadBarChart(chart1, dataTable, "Department", "Open Issues", "Open Points By Department", Color.CornflowerBlue, Color.LightSkyBlue);
         }
 
         private void LoadChart2()
@@ -212,51 +219,61 @@ namespace WinFormsApp
             DataTable dataTable = GetOpenPointByFamily();
             chart2.Series.Clear();
 
-            LoadBarChart(chart2, dataTable, "Family", "Open Issues", "Open Points By Fam", Color.SeaGreen, Color.LightGreen);
-            ConfigureChart(chart2);
-
-            chart2.Series.Clear();
-            chart2.ChartAreas[0].AxisX.Title = "Family";
-            chart2.ChartAreas[0].AxisY.Title = "Open Issues";
-
-            // Create new series
-            Series series = new Series("Open Points By Family");
-            series.ChartType = SeriesChartType.Column; // Bar Chart
-
-            // Set color for the series
-            series.Color = Color.SeaGreen; // Change to any color you prefer
+            Series series = new Series("Open Points By Family")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.SeaGreen,
+                IsValueShownAsLabel = true,
+                LabelForeColor = Color.Black,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
 
             foreach (DataRow row in dataTable.Rows)
             {
                 string fam = row["family_name"].ToString();
                 int count = Convert.ToInt32(row["OpenPoints"]);
                 series.Points.AddXY(fam, count);
+                series.Points[series.Points.Count - 1].Label = count.ToString();
             }
 
             chart2.Series.Add(series);
+            ConfigureChart(chart2);
+            chart2.ChartAreas[0].AxisX.Title = "Family";
+            chart2.ChartAreas[0].AxisY.Title = "Open Issues";
+
+            LoadBarChart(chart2, dataTable, "Family", "Open Issues", "Open Points By Family", Color.SeaGreen, Color.LightGreen);
         }
 
         private void LoadChart3()
         {
             DataTable dataTable = GetOpenPointByProject();
             chart3.Series.Clear();
-            LoadBarChart(chart3, dataTable, "Project", "Open Issues", "Open Points By Project", Color.Red, Color.Green);
-            ConfigureChart(chart3);
-            chart3.Series.Clear();
-            chart3.ChartAreas[0].AxisX.Title = "Project";
-            chart3.ChartAreas[0].AxisY.Title = "Open Issues";
-            // Create new series
-            Series series = new Series("Open Points By Project");
-            series.ChartType = SeriesChartType.Column; // Bar Chart
-            // Set color for the series
-            series.Color = Color.OrangeRed; // Change to any color you prefer
+
+            Series series = new Series("Open Points By Project")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.OrangeRed,
+                IsValueShownAsLabel = true,
+                LabelForeColor = Color.Black,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
+
+            // Add data points to the series
+
             foreach (DataRow row in dataTable.Rows)
             {
                 string project = row["project_name"].ToString();
                 int count = Convert.ToInt32(row["OpenPoints"]);
                 series.Points.AddXY(project, count);
+                series.Points[series.Points.Count - 1].Label = count.ToString();// Set label for each point
             }
+
             chart3.Series.Add(series);
+            ConfigureChart(chart3);
+            chart3.ChartAreas[0].AxisX.Title = "Project";
+            chart3.ChartAreas[0].AxisY.Title = "Open Issues";
+
+            LoadBarChart(chart3, dataTable, "Project", "Open Issues", "Open Points By Project", Color.OrangeRed, Color.LightCoral);
         }
 
         private void LoadPieChart(Chart chart, DataTable dt, string title, string seriesName)
@@ -303,6 +320,8 @@ namespace WinFormsApp
 
             // Customize the chart's appearance
             ConfigurePieChart(chart);
+
+
         }
 
         private void LoadBarChart(Chart chart, DataTable dt, string xTitle, string yTitle, string seriesName, Color startColor, Color endColor)
@@ -313,24 +332,50 @@ namespace WinFormsApp
 
             Series series = new Series(seriesName)
             {
-                ChartType = SeriesChartType.Column,
+                ChartType = SeriesChartType.Column,  // Set chart type to Column
                 Color = startColor,
                 BackGradientStyle = GradientStyle.TopBottom,
                 BackSecondaryColor = endColor
             };
 
+            int maxValue = 0;
+
+            // Add data points and find the maximum value
             foreach (DataRow row in dt.Rows)
             {
-                string category = row[0].ToString();
-                int count = Convert.ToInt32(row[1]);
-                series.Points.AddXY(category, count);
+                string category = row[0].ToString();  // Category (X-axis)
+                int count = Convert.ToInt32(row[1]);  // Value (Y-axis)
+
+                // Add data point to series
+                DataPoint point = new DataPoint();
+                point.SetValueXY(category, count);
+                series.Points.Add(point);
+
+                // Track the maximum value for adjusting Y-axis range
+                if (count > maxValue)
+                {
+                    maxValue = count;
+                }
+
+                // Show the value as a label on top of the bar
+                point.IsValueShownAsLabel = true; // Show value as label
+                point.Label = count.ToString();   // Set label text
+                point.LabelForeColor = Color.Black;  // Set label color
+                point.Font = new Font("Arial", 10, FontStyle.Bold);  // Set label font
+                point.LabelBackColor = Color.Transparent; // Make label background transparent
             }
 
+            // Add the series to the chart
             chart.Series.Add(series);
+
+            // Dynamically adjust Y-axis maximum to avoid clipping of labels
+            chart.ChartAreas[0].AxisY.Maximum = maxValue + (maxValue * 0.2); // Add 20% more space above the highest value
+            chart.ChartAreas[0].InnerPlotPosition = new ElementPosition(5, 5, 90, 85);
             chart.ChartAreas[0].AxisY.Interval = 1;
             chart.ChartAreas[0].AxisY.Minimum = 0;
             chart.ChartAreas[0].RecalculateAxesScale();
         }
+
 
         private void ConfigureChart(Chart chart)
         {

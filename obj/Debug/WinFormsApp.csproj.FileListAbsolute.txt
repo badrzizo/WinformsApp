@@ -77,3 +77,4 @@ C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\bc-fips-1.0.2.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\bcpkix-fips-1.0.2.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\itext.bouncy-castle-fips-adapter.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\itext.bouncy-castle-fips-adapter.xml
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.FirstForms.resources

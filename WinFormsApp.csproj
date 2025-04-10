@@ -176,6 +176,12 @@
     <Compile Include="Feasability\FeasabilityBoards.Designer.cs">
       <DependentUpon>FeasabilityBoards.cs</DependentUpon>
     </Compile>
+    <Compile Include="FirstForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstForms.Designer.cs">
+      <DependentUpon>FirstForms.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </Compile>
     <EmbeddedResource Include="Feasability\FeasabilityBoards.resx">
       <DependentUpon>FeasabilityBoards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirstForms.resx">
+      <DependentUpon>FirstForms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
