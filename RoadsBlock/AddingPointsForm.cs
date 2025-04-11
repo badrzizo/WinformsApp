@@ -295,6 +295,8 @@ namespace WinFormsApp.RoadsBlock
         }
 
 
+
+
         private int GetProjectId(string projectName)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
@@ -318,6 +320,7 @@ namespace WinFormsApp.RoadsBlock
                 }
             }
         }
+
 
 
         private int GetFamilyId(string familyName)
@@ -344,6 +347,8 @@ namespace WinFormsApp.RoadsBlock
         }
 
 
+
+
         private int GetDepartmentId(string departmentName)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
@@ -366,6 +371,8 @@ namespace WinFormsApp.RoadsBlock
                 }
             }
         }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {

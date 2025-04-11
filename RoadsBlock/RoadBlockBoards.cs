@@ -1,27 +1,12 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using iText.IO.Font.Constants;
-using iText.Kernel.Colors;
-using iText.Kernel.Exceptions;
-using iText.Kernel.Font;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using OfficeOpenXml.Style;
-using OfficeOpenXml;
 using ClosedXML.Excel;
 using System.Collections.Generic;
 using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using System.Windows.Forms.DataVisualization.Charting;
-
 
 
 
@@ -123,11 +108,16 @@ namespace WinFormsApp.RoadsBlock
                     dataGridView1.Columns["family_name"].Width = 100;
                     dataGridView1.Columns["departement_name"].Width = 100;
                     dataGridView1.Columns["status"].Width = 100;
-                    dataGridView1.Columns["issues"].Width = 100;
-                    dataGridView1.Columns["actions"].Width = 100;
+                    dataGridView1.Columns["issues"].Width = 300;
+                    dataGridView1.Columns["actions"].Width = 300;
                     dataGridView1.Columns["owner"].Width = 100;
                     dataGridView1.Columns["due_date"].Width = 100;
 
+                    
+                    dataGridView1.Columns["Delete"].DefaultCellStyle.BackColor = Color.Red;
+                    dataGridView1.Columns["Delete"].DefaultCellStyle.ForeColor = Color.White;
+                    
+                    
                     // Reorder columns if needed
                     dataGridView1.Columns["project_name"].DisplayIndex = 0;
                     dataGridView1.Columns["family_name"].DisplayIndex = 1;
@@ -137,9 +127,8 @@ namespace WinFormsApp.RoadsBlock
                     dataGridView1.Columns["actions"].DisplayIndex = 4;
                     dataGridView1.Columns["owner"].DisplayIndex = 5;
                     dataGridView1.Columns["due_date"].DisplayIndex = 6;
-
-                   
-
+                    dataGridView1.Columns["Delete"].DisplayIndex = 8;
+                    
                     // Set the header column color after the DataGridView is populated
                     SetColumnHeaderStyle();
 
@@ -158,6 +147,8 @@ namespace WinFormsApp.RoadsBlock
 
                     // Handle the CellValueChanged event to update the database when a value is modified
                     dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
+
+                    SetDataGridViewStyles();
                 }
             }
             catch (Exception ex)
@@ -165,6 +156,8 @@ namespace WinFormsApp.RoadsBlock
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+
 
         private void DeleteRoadblockFromDatabase(int idToDelete)
         {
@@ -197,6 +190,9 @@ namespace WinFormsApp.RoadsBlock
             }
         }
 
+
+
+
         private void SetColumnHeaderStyle()
         {
             // Disable default visual styles to allow custom styling
@@ -205,8 +201,8 @@ namespace WinFormsApp.RoadsBlock
             // Create a style for the column headers
             DataGridViewCellStyle headerStyle = new DataGridViewCellStyle()
             {
-                BackColor = System.Drawing.Color.Blue,               // Header background color
-                ForeColor = System.Drawing.Color.White,             // Header text color
+                BackColor = System.Drawing.Color.Blue,// Header background color
+                ForeColor = System.Drawing.Color.White,// Header text color
                 Font = new Font("Arial", 10, FontStyle.Bold),  // Font style
                 Alignment = DataGridViewContentAlignment.MiddleCenter  // Text alignment
             };
@@ -219,10 +215,95 @@ namespace WinFormsApp.RoadsBlock
 
             // Optional: Set the height of the header row
             dataGridView1.ColumnHeadersHeight = 35;
+            dataGridView1.AllowUserToOrderColumns = true;
 
             // Refresh to apply changes
             dataGridView1.Refresh();
         }
+
+        private void SetDataGridViewStyles()
+        {
+            // Disable default visual styles to allow full customization
+            dataGridView1.EnableHeadersVisualStyles = false;
+
+            // Set basic grid properties
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridView1.GridColor = Color.FromArgb(240, 240, 240);
+            dataGridView1.BackgroundColor = Color.White;
+
+            // Set default cell style
+            dataGridView1.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(64, 64, 64),
+                Font = new Font("Segoe UI", 9),
+                SelectionBackColor = Color.FromArgb(0, 120, 215),
+                SelectionForeColor = Color.White,
+                Padding = new Padding(3),
+                Alignment = DataGridViewContentAlignment.MiddleLeft
+            };
+
+            // Set alternating row colors
+            dataGridView1.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(248, 248, 248),
+                ForeColor = Color.FromArgb(64, 64, 64)
+            };
+
+            // Set column header style
+            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(0, 114, 198),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI Semibold", 9.75f, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                Padding = new Padding(5, 5, 5, 5)
+            };
+            dataGridView1.ColumnHeadersDefaultCellStyle = headerStyle;
+            dataGridView1.ColumnHeadersHeight = 35;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            // Set row headers style (if visible)
+            dataGridView1.RowHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(240, 240, 240),
+                ForeColor = SystemColors.ControlText,
+                Font = new Font("Segoe UI", 8)
+            };
+
+            // Set row height and selection mode
+            dataGridView1.RowTemplate.Height = 28;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.AllowUserToResizeRows = false;
+
+            // Customize the Delete button column
+            if (dataGridView1.Columns.Contains("Delete"))
+            {
+                dataGridView1.Columns["Delete"].DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(220, 53, 69),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                };
+            }
+
+            // Apply custom formatting to specific columns
+            dataGridView1.Columns["due_date"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dataGridView1.Columns["due_date"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+            // Ensure the Delete button column doesn't grow too much
+            if (dataGridView1.Columns.Contains("Delete"))
+            {
+                dataGridView1.Columns["Delete"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridView1.Columns["Delete"].Width = 80;
+            }
+        }
+
+
 
 
 
@@ -364,6 +445,8 @@ namespace WinFormsApp.RoadsBlock
                 // Reload the data when the adding form closes successfully
                 RoadBlockBoards_Load1(this, EventArgs.Empty);
             }
+
+            
         }
 
         private void ExportDataGridViewToPdf_PdfSharp(DataGridView dgv, string filePath)
@@ -411,7 +494,7 @@ namespace WinFormsApp.RoadsBlock
                     }
 
                     // Adjust page width if needed
-                    if (totalWidth > page.Width - 40)
+                    if (totalWidth > page.Width - 50)
                     {
                         // Handle case where content is wider than the page (e.g., scale or adjust font)
                         MessageBox.Show("Data width exceeds page width. PDF output may be truncated.");
