@@ -20,6 +20,8 @@ namespace WinFormsApp.RoadsBlock
             comboBoxProject.SelectedIndexChanged += comboBoxProject_SelectedIndexChanged;
         }
 
+
+
         private void LoadComboBoxData()
         {
             // Connection string to your database
@@ -29,32 +31,37 @@ namespace WinFormsApp.RoadsBlock
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string projectQuery = "SELECT project_name FROM Project"; // Replace with your actual table and column names
+                string projectQuery = "SELECT project_name FROM Project"; 
                 SqlDataAdapter projectAdapter = new SqlDataAdapter(projectQuery, conn);
                 DataTable projectTable = new DataTable();
                 projectAdapter.Fill(projectTable);
                 comboBoxProject.DataSource = projectTable;
                 comboBoxProject.DisplayMember = "project_name"; // Display the project name
                 comboBoxProject.ValueMember = "project_name";   // Use the project name as the value
+                comboBoxProject.SelectedIndex = 0;
             }
 
             // Load Departments into comboBoxDpt
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string departmentQuery = "SELECT departement_name FROM Department"; // Replace with your actual table and column names
+                string departmentQuery = "SELECT departement_name FROM Department"; 
                 SqlDataAdapter departmentAdapter = new SqlDataAdapter(departmentQuery, conn);
                 DataTable departmentTable = new DataTable();
                 departmentAdapter.Fill(departmentTable);
                 comboBoxDpt.DataSource = departmentTable;
                 comboBoxDpt.DisplayMember = "departement_name"; // Display the department name
                 comboBoxDpt.ValueMember = "departement_name";   // Use the department name as the value
+                comboBoxDpt.SelectedIndex = 0;
             }
 
             // Set Status options
             comboBoxStatus.Items.AddRange(new string[] { "Open", "Closed", "Ongoing" });
             comboBoxStatus.SelectedIndex = 0;  // Set default selection
         }
+
+
+
 
         private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -83,9 +90,6 @@ namespace WinFormsApp.RoadsBlock
         private void LoadFamiliesForProject(string projectName)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
-            comboBoxFam.Items.Clear(); // Clear existing items in comboBoxFam
-
-
 
             // Get family names related to the selected project
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -96,7 +100,7 @@ namespace WinFormsApp.RoadsBlock
             FROM Family f
             INNER JOIN ProjectFamily pf ON f.id = pf.family_id
             INNER JOIN Project p ON pf.project_id = p.id
-            WHERE p.project_name = @ProjectName";  // Ensure correct parameter usage
+            WHERE p.project_name = @ProjectName";  
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -126,11 +130,17 @@ namespace WinFormsApp.RoadsBlock
         }
 
 
+
+
+
         private void linkLabelProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             RoadsBlock.ManagerRoadsBloackProject managerRoadsBloackProject = new ManagerRoadsBloackProject();
             managerRoadsBloackProject.Show();
         }
+
+
+
 
         private void linkLabelFamily_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -138,18 +148,23 @@ namespace WinFormsApp.RoadsBlock
             managerRoadsBlockFamily.Show();
         }
 
+
+
         private void linkLabelDepartement_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ManagerRoadsBlockDepartement managerRoadsBlockDepartement = new ManagerRoadsBlockDepartement();
             managerRoadsBlockDepartement.Show();
         }
 
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             // Get selected values from ComboBoxes and TextBoxes
-            string project = comboBoxProject.SelectedItem?.ToString();
+            string project = comboBoxProject.SelectedItem is DataRowView rowProject ? rowProject["project_name"].ToString() : comboBoxProject.SelectedItem?.ToString(); // Handle DataRowView and MannuallyField
             string fam = comboBoxFam.SelectedItem?.ToString();
-            string dpt = comboBoxDpt.SelectedItem?.ToString();
+            string dpt = comboBoxDpt.SelectedItem is DataRowView rowDpt ? rowDpt["departement_name"].ToString() : comboBoxDpt.SelectedItem?.ToString();
             string status = comboBoxStatus.SelectedItem?.ToString();
             string issues = textBoxIssues.Text.Trim();
             string actions = textBoxActions.Text.Trim();
@@ -164,7 +179,7 @@ namespace WinFormsApp.RoadsBlock
                 return;
             }
 
-            // Insert data into database
+            // Insert data into databasex
             InsertRoadblock(project, fam, dpt, status, issues, actions, owner, dueDate); // Pass DateTime directly
 
             // Notify parent form (Roadblocks) that data has been inserted
@@ -174,7 +189,9 @@ namespace WinFormsApp.RoadsBlock
             this.Close();
         }
 
-        private void InsertRoadblock(string project, string fam, string dpt, string status,
+
+        // Handle the Insert Of Data
+        private void InsertRoadblock(string project, string family, string department, string status,
                     string issues, string actions, string owner, DateTime dueDate)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
@@ -183,8 +200,8 @@ namespace WinFormsApp.RoadsBlock
             {
                 // Fetch the IDs first
                 int projectId = GetProjectId(project);
-                int famId = GetFamilyId(fam);
-                int dptId = GetDepartmentId(dpt);
+                int famId = GetFamilyId(family);
+                int dptId = GetDepartmentId(department);
 
                 // Validate all required IDs were found
                 if (projectId == -1 || famId == -1 || dptId == -1)
@@ -245,12 +262,12 @@ namespace WinFormsApp.RoadsBlock
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Roadblock added successfully!", "Success",
+                            MessageBox.Show("Point added successfully!", "Success",
                                           MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Failed to add roadblock", "Error",
+                            MessageBox.Show("Failed to add Point", "Error",
                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -296,10 +313,8 @@ namespace WinFormsApp.RoadsBlock
                         return -1; // Return -1 if not found
                     }
 
-                    // Debugging: Show the query result
-                    MessageBox.Show($"Project '{projectName}' found with ID: {result}");
-
                     return Convert.ToInt32(result);
+                
                 }
             }
         }
@@ -322,9 +337,6 @@ namespace WinFormsApp.RoadsBlock
                         MessageBox.Show($"Family '{familyName}' not found in the database.");
                         return -1; // Return -1 if not found
                     }
-
-                    // Debugging: Show the query result
-                    MessageBox.Show($"Family '{familyName}' found with ID: {result}");
 
                     return Convert.ToInt32(result);
                 }
@@ -350,13 +362,14 @@ namespace WinFormsApp.RoadsBlock
                         return -1; // Return -1 if not found
                     }
 
-                    // Debugging: Show the query result
-                    MessageBox.Show($"Department '{departmentName}' found with ID: {result}");
-
                     return Convert.ToInt32(result);
                 }
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

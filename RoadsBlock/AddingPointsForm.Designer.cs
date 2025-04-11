@@ -30,6 +30,13 @@
         {
             this.feasibilityTableAdapter1 = new WinFormsApp.BoardDBDataSetTableAdapters.FeasibilityTableAdapter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxOwner = new MaterialSkin.Controls.MaterialTextBox();
+            this.comboBoxStatus = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboBoxDpt = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboBoxFam = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboBoxProject = new MaterialSkin.Controls.MaterialComboBox();
+            this.textBoxActions = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
+            this.textBoxIssues = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
             this.linkLabel6 = new System.Windows.Forms.LinkLabel();
             this.linkLabelDepartement = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
@@ -47,13 +54,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePickerDueDate = new System.Windows.Forms.DateTimePicker();
             this.tableAdapterManager1 = new WinFormsApp.BoardDBDataSetTableAdapters.TableAdapterManager();
-            this.textBoxIssues = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
-            this.textBoxActions = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
-            this.comboBoxProject = new MaterialSkin.Controls.MaterialComboBox();
-            this.comboBoxFam = new MaterialSkin.Controls.MaterialComboBox();
-            this.comboBoxDpt = new MaterialSkin.Controls.MaterialComboBox();
-            this.comboBoxStatus = new MaterialSkin.Controls.MaterialComboBox();
-            this.textBoxOwner = new MaterialSkin.Controls.MaterialTextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SeaShell;
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.textBoxOwner);
             this.groupBox1.Controls.Add(this.comboBoxStatus);
             this.groupBox1.Controls.Add(this.comboBoxDpt);
@@ -93,6 +95,161 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Forms";
+            // 
+            // textBoxOwner
+            // 
+            this.textBoxOwner.AnimateReadOnly = false;
+            this.textBoxOwner.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxOwner.Depth = 0;
+            this.textBoxOwner.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBoxOwner.LeadingIcon = null;
+            this.textBoxOwner.Location = new System.Drawing.Point(476, 364);
+            this.textBoxOwner.MaxLength = 50;
+            this.textBoxOwner.MouseState = MaterialSkin.MouseState.OUT;
+            this.textBoxOwner.Multiline = false;
+            this.textBoxOwner.Name = "textBoxOwner";
+            this.textBoxOwner.Size = new System.Drawing.Size(304, 50);
+            this.textBoxOwner.TabIndex = 30;
+            this.textBoxOwner.Text = "";
+            this.textBoxOwner.TrailingIcon = null;
+            // 
+            // comboBoxStatus
+            // 
+            this.comboBoxStatus.AutoResize = false;
+            this.comboBoxStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBoxStatus.Depth = 0;
+            this.comboBoxStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxStatus.DropDownHeight = 174;
+            this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatus.DropDownWidth = 121;
+            this.comboBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBoxStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBoxStatus.FormattingEnabled = true;
+            this.comboBoxStatus.IntegralHeight = false;
+            this.comboBoxStatus.ItemHeight = 43;
+            this.comboBoxStatus.Location = new System.Drawing.Point(6, 320);
+            this.comboBoxStatus.MaxDropDownItems = 4;
+            this.comboBoxStatus.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBoxStatus.Name = "comboBoxStatus";
+            this.comboBoxStatus.Size = new System.Drawing.Size(297, 49);
+            this.comboBoxStatus.StartIndex = 0;
+            this.comboBoxStatus.TabIndex = 29;
+            // 
+            // comboBoxDpt
+            // 
+            this.comboBoxDpt.AutoResize = false;
+            this.comboBoxDpt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBoxDpt.Depth = 0;
+            this.comboBoxDpt.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxDpt.DropDownHeight = 174;
+            this.comboBoxDpt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDpt.DropDownWidth = 121;
+            this.comboBoxDpt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBoxDpt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBoxDpt.FormattingEnabled = true;
+            this.comboBoxDpt.IntegralHeight = false;
+            this.comboBoxDpt.ItemHeight = 43;
+            this.comboBoxDpt.Location = new System.Drawing.Point(9, 237);
+            this.comboBoxDpt.MaxDropDownItems = 4;
+            this.comboBoxDpt.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBoxDpt.Name = "comboBoxDpt";
+            this.comboBoxDpt.Size = new System.Drawing.Size(297, 49);
+            this.comboBoxDpt.StartIndex = 0;
+            this.comboBoxDpt.TabIndex = 28;
+            // 
+            // comboBoxFam
+            // 
+            this.comboBoxFam.AutoResize = false;
+            this.comboBoxFam.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBoxFam.Depth = 0;
+            this.comboBoxFam.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxFam.DropDownHeight = 174;
+            this.comboBoxFam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFam.DropDownWidth = 121;
+            this.comboBoxFam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBoxFam.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBoxFam.FormattingEnabled = true;
+            this.comboBoxFam.IntegralHeight = false;
+            this.comboBoxFam.ItemHeight = 43;
+            this.comboBoxFam.Location = new System.Drawing.Point(6, 159);
+            this.comboBoxFam.MaxDropDownItems = 4;
+            this.comboBoxFam.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBoxFam.Name = "comboBoxFam";
+            this.comboBoxFam.Size = new System.Drawing.Size(297, 49);
+            this.comboBoxFam.StartIndex = 0;
+            this.comboBoxFam.TabIndex = 27;
+            // 
+            // comboBoxProject
+            // 
+            this.comboBoxProject.AutoResize = false;
+            this.comboBoxProject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.comboBoxProject.Depth = 0;
+            this.comboBoxProject.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxProject.DropDownHeight = 174;
+            this.comboBoxProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxProject.DropDownWidth = 121;
+            this.comboBoxProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBoxProject.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBoxProject.FormattingEnabled = true;
+            this.comboBoxProject.IntegralHeight = false;
+            this.comboBoxProject.ItemHeight = 43;
+            this.comboBoxProject.Location = new System.Drawing.Point(6, 70);
+            this.comboBoxProject.MaxDropDownItems = 4;
+            this.comboBoxProject.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBoxProject.Name = "comboBoxProject";
+            this.comboBoxProject.Size = new System.Drawing.Size(297, 49);
+            this.comboBoxProject.StartIndex = 0;
+            this.comboBoxProject.TabIndex = 26;
+            // 
+            // textBoxActions
+            // 
+            this.textBoxActions.AnimateReadOnly = false;
+            this.textBoxActions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textBoxActions.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.textBoxActions.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textBoxActions.Depth = 0;
+            this.textBoxActions.HideSelection = true;
+            this.textBoxActions.Location = new System.Drawing.Point(476, 211);
+            this.textBoxActions.MaxLength = 32767;
+            this.textBoxActions.MouseState = MaterialSkin.MouseState.OUT;
+            this.textBoxActions.Name = "textBoxActions";
+            this.textBoxActions.PasswordChar = '\0';
+            this.textBoxActions.ReadOnly = false;
+            this.textBoxActions.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBoxActions.SelectedText = "";
+            this.textBoxActions.SelectionLength = 0;
+            this.textBoxActions.SelectionStart = 0;
+            this.textBoxActions.ShortcutsEnabled = true;
+            this.textBoxActions.Size = new System.Drawing.Size(467, 100);
+            this.textBoxActions.TabIndex = 25;
+            this.textBoxActions.TabStop = false;
+            this.textBoxActions.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.textBoxActions.UseSystemPasswordChar = false;
+            // 
+            // textBoxIssues
+            // 
+            this.textBoxIssues.AnimateReadOnly = false;
+            this.textBoxIssues.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textBoxIssues.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.textBoxIssues.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textBoxIssues.Depth = 0;
+            this.textBoxIssues.HideSelection = true;
+            this.textBoxIssues.Location = new System.Drawing.Point(476, 70);
+            this.textBoxIssues.MaxLength = 32767;
+            this.textBoxIssues.MouseState = MaterialSkin.MouseState.OUT;
+            this.textBoxIssues.Name = "textBoxIssues";
+            this.textBoxIssues.PasswordChar = '\0';
+            this.textBoxIssues.ReadOnly = false;
+            this.textBoxIssues.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBoxIssues.SelectedText = "";
+            this.textBoxIssues.SelectionLength = 0;
+            this.textBoxIssues.SelectionStart = 0;
+            this.textBoxIssues.ShortcutsEnabled = true;
+            this.textBoxIssues.Size = new System.Drawing.Size(467, 100);
+            this.textBoxIssues.TabIndex = 23;
+            this.textBoxIssues.TabStop = false;
+            this.textBoxIssues.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.textBoxIssues.UseSystemPasswordChar = false;
             // 
             // linkLabel6
             // 
@@ -139,7 +296,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(309, 112);
+            this.linkLabel2.Location = new System.Drawing.Point(309, 103);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(92, 16);
             this.linkLabel2.TabIndex = 18;
@@ -149,7 +306,7 @@
             // linkLabelProject
             // 
             this.linkLabelProject.AutoSize = true;
-            this.linkLabelProject.Location = new System.Drawing.Point(309, 79);
+            this.linkLabelProject.Location = new System.Drawing.Point(309, 70);
             this.linkLabelProject.Name = "linkLabelProject";
             this.linkLabelProject.Size = new System.Drawing.Size(77, 16);
             this.linkLabelProject.TabIndex = 17;
@@ -223,7 +380,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 60);
+            this.label1.Location = new System.Drawing.Point(3, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 16);
             this.label1.TabIndex = 9;
@@ -232,7 +389,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(38, 457);
+            this.button1.Location = new System.Drawing.Point(737, 531);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 46);
             this.button1.TabIndex = 6;
@@ -253,160 +410,16 @@
             this.tableAdapterManager1.FeasibilityTableAdapter = this.feasibilityTableAdapter1;
             this.tableAdapterManager1.UpdateOrder = WinFormsApp.BoardDBDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // textBoxIssues
+            // button2
             // 
-            this.textBoxIssues.AnimateReadOnly = false;
-            this.textBoxIssues.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textBoxIssues.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.textBoxIssues.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxIssues.Depth = 0;
-            this.textBoxIssues.HideSelection = true;
-            this.textBoxIssues.Location = new System.Drawing.Point(476, 70);
-            this.textBoxIssues.MaxLength = 32767;
-            this.textBoxIssues.MouseState = MaterialSkin.MouseState.OUT;
-            this.textBoxIssues.Name = "textBoxIssues";
-            this.textBoxIssues.PasswordChar = '\0';
-            this.textBoxIssues.ReadOnly = false;
-            this.textBoxIssues.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBoxIssues.SelectedText = "";
-            this.textBoxIssues.SelectionLength = 0;
-            this.textBoxIssues.SelectionStart = 0;
-            this.textBoxIssues.ShortcutsEnabled = true;
-            this.textBoxIssues.Size = new System.Drawing.Size(467, 100);
-            this.textBoxIssues.TabIndex = 23;
-            this.textBoxIssues.TabStop = false;
-            this.textBoxIssues.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxIssues.UseSystemPasswordChar = false;
-            // 
-            // textBoxActions
-            // 
-            this.textBoxActions.AnimateReadOnly = false;
-            this.textBoxActions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textBoxActions.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.textBoxActions.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxActions.Depth = 0;
-            this.textBoxActions.HideSelection = true;
-            this.textBoxActions.Location = new System.Drawing.Point(476, 211);
-            this.textBoxActions.MaxLength = 32767;
-            this.textBoxActions.MouseState = MaterialSkin.MouseState.OUT;
-            this.textBoxActions.Name = "textBoxActions";
-            this.textBoxActions.PasswordChar = '\0';
-            this.textBoxActions.ReadOnly = false;
-            this.textBoxActions.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBoxActions.SelectedText = "";
-            this.textBoxActions.SelectionLength = 0;
-            this.textBoxActions.SelectionStart = 0;
-            this.textBoxActions.ShortcutsEnabled = true;
-            this.textBoxActions.Size = new System.Drawing.Size(467, 100);
-            this.textBoxActions.TabIndex = 25;
-            this.textBoxActions.TabStop = false;
-            this.textBoxActions.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxActions.UseSystemPasswordChar = false;
-            // 
-            // comboBoxProject
-            // 
-            this.comboBoxProject.AutoResize = false;
-            this.comboBoxProject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBoxProject.Depth = 0;
-            this.comboBoxProject.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxProject.DropDownHeight = 174;
-            this.comboBoxProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxProject.DropDownWidth = 121;
-            this.comboBoxProject.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBoxProject.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboBoxProject.FormattingEnabled = true;
-            this.comboBoxProject.IntegralHeight = false;
-            this.comboBoxProject.ItemHeight = 43;
-            this.comboBoxProject.Location = new System.Drawing.Point(6, 79);
-            this.comboBoxProject.MaxDropDownItems = 4;
-            this.comboBoxProject.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboBoxProject.Name = "comboBoxProject";
-            this.comboBoxProject.Size = new System.Drawing.Size(297, 49);
-            this.comboBoxProject.StartIndex = 0;
-            this.comboBoxProject.TabIndex = 26;
-            // 
-            // comboBoxFam
-            // 
-            this.comboBoxFam.AutoResize = false;
-            this.comboBoxFam.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBoxFam.Depth = 0;
-            this.comboBoxFam.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxFam.DropDownHeight = 174;
-            this.comboBoxFam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFam.DropDownWidth = 121;
-            this.comboBoxFam.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBoxFam.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboBoxFam.FormattingEnabled = true;
-            this.comboBoxFam.IntegralHeight = false;
-            this.comboBoxFam.ItemHeight = 43;
-            this.comboBoxFam.Location = new System.Drawing.Point(6, 159);
-            this.comboBoxFam.MaxDropDownItems = 4;
-            this.comboBoxFam.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboBoxFam.Name = "comboBoxFam";
-            this.comboBoxFam.Size = new System.Drawing.Size(297, 49);
-            this.comboBoxFam.StartIndex = 0;
-            this.comboBoxFam.TabIndex = 27;
-            // 
-            // comboBoxDpt
-            // 
-            this.comboBoxDpt.AutoResize = false;
-            this.comboBoxDpt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBoxDpt.Depth = 0;
-            this.comboBoxDpt.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxDpt.DropDownHeight = 174;
-            this.comboBoxDpt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDpt.DropDownWidth = 121;
-            this.comboBoxDpt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBoxDpt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboBoxDpt.FormattingEnabled = true;
-            this.comboBoxDpt.IntegralHeight = false;
-            this.comboBoxDpt.ItemHeight = 43;
-            this.comboBoxDpt.Location = new System.Drawing.Point(9, 237);
-            this.comboBoxDpt.MaxDropDownItems = 4;
-            this.comboBoxDpt.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboBoxDpt.Name = "comboBoxDpt";
-            this.comboBoxDpt.Size = new System.Drawing.Size(297, 49);
-            this.comboBoxDpt.StartIndex = 0;
-            this.comboBoxDpt.TabIndex = 28;
-            // 
-            // comboBoxStatus
-            // 
-            this.comboBoxStatus.AutoResize = false;
-            this.comboBoxStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBoxStatus.Depth = 0;
-            this.comboBoxStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxStatus.DropDownHeight = 174;
-            this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatus.DropDownWidth = 121;
-            this.comboBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBoxStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.IntegralHeight = false;
-            this.comboBoxStatus.ItemHeight = 43;
-            this.comboBoxStatus.Location = new System.Drawing.Point(6, 320);
-            this.comboBoxStatus.MaxDropDownItems = 4;
-            this.comboBoxStatus.MouseState = MaterialSkin.MouseState.OUT;
-            this.comboBoxStatus.Name = "comboBoxStatus";
-            this.comboBoxStatus.Size = new System.Drawing.Size(297, 49);
-            this.comboBoxStatus.StartIndex = 0;
-            this.comboBoxStatus.TabIndex = 29;
-            // 
-            // textBoxOwner
-            // 
-            this.textBoxOwner.AnimateReadOnly = false;
-            this.textBoxOwner.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxOwner.Depth = 0;
-            this.textBoxOwner.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.textBoxOwner.LeadingIcon = null;
-            this.textBoxOwner.Location = new System.Drawing.Point(476, 364);
-            this.textBoxOwner.MaxLength = 50;
-            this.textBoxOwner.MouseState = MaterialSkin.MouseState.OUT;
-            this.textBoxOwner.Multiline = false;
-            this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(304, 50);
-            this.textBoxOwner.TabIndex = 30;
-            this.textBoxOwner.Text = "";
-            this.textBoxOwner.TrailingIcon = null;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(893, 531);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(138, 46);
+            this.button2.TabIndex = 31;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // AddingPointsForm
             // 
@@ -451,5 +464,6 @@
         private MaterialSkin.Controls.MaterialComboBox comboBoxFam;
         private MaterialSkin.Controls.MaterialComboBox comboBoxProject;
         private MaterialSkin.Controls.MaterialTextBox textBoxOwner;
+        private System.Windows.Forms.Button button2;
     }
 }
