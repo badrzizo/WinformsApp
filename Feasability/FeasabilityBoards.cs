@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinFormsApp.Feasability
@@ -22,6 +15,12 @@ namespace WinFormsApp.Feasability
             // TODO: cette ligne de code charge les données dans la table 'boardDBDataSet.Feasibility'. Vous pouvez la déplacer ou la supprimer selon les besoins.
             this.feasibilityTableAdapter.Fill(this.boardDBDataSet.Feasibility);
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Feasability.AddFormFeasabilty addFormFeasabilty = new Feasability.AddFormFeasabilty();
+            addFormFeasabilty.ShowDialog();
         }
     }
 }

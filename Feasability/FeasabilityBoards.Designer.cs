@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeasabilityBoards));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.boardDBDataSet = new WinFormsApp.BoardDBDataSet();
-            this.feasibilityBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.feasibilityTableAdapter = new WinFormsApp.BoardDBDataSetTableAdapters.FeasibilityTableAdapter();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.phaseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,10 +46,15 @@
             this.programmeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.serialboardintegrationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.workplaceintegrationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.feasibilityBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.boardDBDataSet = new WinFormsApp.BoardDBDataSet();
+            this.feasibilityTableAdapter = new WinFormsApp.BoardDBDataSetTableAdapters.FeasibilityTableAdapter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.feasibilityBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -80,22 +83,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(600, 450);
+            this.dataGridView1.Size = new System.Drawing.Size(1045, 552);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // boardDBDataSet
-            // 
-            this.boardDBDataSet.DataSetName = "BoardDBDataSet";
-            this.boardDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // feasibilityBindingSource
-            // 
-            this.feasibilityBindingSource.DataMember = "Feasibility";
-            this.feasibilityBindingSource.DataSource = this.boardDBDataSet;
-            // 
-            // feasibilityTableAdapter
-            // 
-            this.feasibilityTableAdapter.ClearBeforeFill = true;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -218,20 +207,49 @@
             this.workplaceintegrationDataGridViewTextBoxColumn.Name = "workplaceintegrationDataGridViewTextBoxColumn";
             this.workplaceintegrationDataGridViewTextBoxColumn.Width = 125;
             // 
+            // feasibilityBindingSource
+            // 
+            this.feasibilityBindingSource.DataMember = "Feasibility";
+            this.feasibilityBindingSource.DataSource = this.boardDBDataSet;
+            // 
+            // boardDBDataSet
+            // 
+            this.boardDBDataSet.DataSetName = "BoardDBDataSet";
+            this.boardDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // feasibilityTableAdapter
+            // 
+            this.feasibilityTableAdapter.ClearBeforeFill = true;
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 450);
+            this.panel1.Size = new System.Drawing.Size(200, 552);
             this.panel1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.Location = new System.Drawing.Point(12, 207);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(182, 86);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Add Point";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FeasabilityBoards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1245, 552);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Name = "FeasabilityBoards";
@@ -240,8 +258,9 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FeasabilityBoards_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.feasibilityBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDBDataSet)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -268,5 +287,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn serialboardintegrationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn workplaceintegrationDataGridViewTextBoxColumn;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }

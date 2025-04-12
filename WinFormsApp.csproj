@@ -243,6 +243,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BoardDBDataSet4.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Feasability\AddFormFeasabilty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Feasability\AddFormFeasabilty.Designer.cs">
+      <DependentUpon>AddFormFeasabilty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Feasability\FeasabilityBoards.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     <Compile Include="RoadsBlock\RoadBlockBoards.Designer.cs">
       <DependentUpon>RoadBlockBoards.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Feasability\AddFormFeasabilty.resx">
+      <DependentUpon>AddFormFeasabilty.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Feasability\FeasabilityBoards.resx">
       <DependentUpon>FeasabilityBoards.cs</DependentUpon>
     </EmbeddedResource>

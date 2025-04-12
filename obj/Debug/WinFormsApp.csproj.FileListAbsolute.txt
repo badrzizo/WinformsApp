@@ -129,3 +129,4 @@ C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\SixLabors.ImageSharp.xml
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharp.resources.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharp.Charting.resources.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharpCore.resources.dll
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.Feasability.AddFormFeasabilty.resources
