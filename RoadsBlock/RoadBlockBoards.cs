@@ -83,6 +83,8 @@ namespace WinFormsApp.RoadsBlock
                 JOIN 
                     Department d ON r.dpt_id = d.id;";
 
+                    
+
                     SqlDataAdapter dataAdapter2 = new SqlDataAdapter(query, conn);
                     DataTable dataTable = new DataTable();
                     dataAdapter2.Fill(dataTable);
@@ -303,10 +305,6 @@ namespace WinFormsApp.RoadsBlock
             }
         }
 
-
-
-
-
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             // Check if the edited column is one that requires an update
@@ -448,157 +446,7 @@ namespace WinFormsApp.RoadsBlock
 
             
         }
-
-        private void ExportDataGridViewToPdf_PdfSharp(DataGridView dgv, string filePath)
-        {
-            try
-            {
-                using (PdfSharp.Pdf.PdfDocument pdf = new PdfSharp.Pdf.PdfDocument())
-                {
-                    PdfSharp.Pdf.PdfPage page = pdf.AddPage();
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
-                    XFont headerFont = new XFont("Arial", 12, XFontStyleEx.Bold);
-                    XFont cellFont = new XFont("Arial", 10);
-
-                    // Reorder columns in the same order as DisplayIndex
-                    var columnsInOrder = new List<DataGridViewColumn>();
-                    columnsInOrder.Add(dgv.Columns["project_name"]);
-                    columnsInOrder.Add(dgv.Columns["family_name"]);
-                    columnsInOrder.Add(dgv.Columns["departement_name"]);
-                    columnsInOrder.Add(dgv.Columns["issues"]);
-                    columnsInOrder.Add(dgv.Columns["actions"]);
-                    columnsInOrder.Add(dgv.Columns["owner"]);
-                    columnsInOrder.Add(dgv.Columns["due_date"]);
-                    columnsInOrder.Add(dgv.Columns["status"]);
-
-                    float x = 20;
-                    float y = 50;
-                    float cellHeight = 20;
-                    float totalWidth = 0;
-                    Dictionary<string, float> columnWidths = new Dictionary<string, float>();
-
-                    // Calculate column widths
-                    foreach (var column in columnsInOrder)
-                    {
-                        if (!column.Visible) continue;
-                        float width = (float)(gfx.MeasureString(column.HeaderText, headerFont).Width + 10);
-                        foreach (DataGridViewRow row in dgv.Rows)
-                        {
-                            if (row.IsNewRow) continue;
-                            string cellValue = row.Cells[column.Name].Value?.ToString() ?? "";
-                            float cellWidth = (float)(gfx.MeasureString(cellValue, cellFont).Width + 10);
-                            width = Math.Max(width, cellWidth);
-                        }
-                        columnWidths[column.Name] = width;
-                        totalWidth += width;
-                    }
-
-                    // Adjust page width if needed
-                    if (totalWidth > page.Width - 50)
-                    {
-                        // Handle case where content is wider than the page (e.g., scale or adjust font)
-                        MessageBox.Show("Data width exceeds page width. PDF output may be truncated.");
-                    }
-
-                    // Draw headers
-                    foreach (var column in columnsInOrder)
-                    {
-                        if (!column.Visible) continue;
-                        XBrush headerBrush = XBrushes.Blue;
-                        gfx.DrawRectangle(headerBrush, x, y, columnWidths[column.Name], cellHeight);
-                        gfx.DrawString(column.HeaderText, headerFont, XBrushes.White, new XRect(x, y, columnWidths[column.Name], cellHeight), XStringFormats.Center);
-                        x += columnWidths[column.Name];
-                    }
-
-                    y += cellHeight;
-                    x = 20;
-
-                    // Draw data
-                    foreach (DataGridViewRow row in dgv.Rows)
-                    {
-                        if (row.IsNewRow) continue;
-                        x = 20;
-                        foreach (var column in columnsInOrder)
-                        {
-                            if (!column.Visible) continue;
-                            string cellValue = row.Cells[column.Name].Value?.ToString() ?? "";
-                            XBrush cellBrush = XBrushes.Black; // Default brush
-
-                            // Apply color based on "status" column
-                            if (column.Name == "status")
-                            {
-                                if (cellValue == "Open") cellBrush = XBrushes.Red;
-                                else if (cellValue == "Closed") cellBrush = XBrushes.Green;
-                                else if (cellValue == "Ongoing") cellBrush = XBrushes.Orange;
-                            }
-
-                            gfx.DrawString(cellValue, cellFont, cellBrush, new XRect(x, y, columnWidths[column.Name], cellHeight), XStringFormats.Center);
-                            x += columnWidths[column.Name];
-                        }
-                        y += cellHeight;
-
-                        // Add new page if needed
-                        if (y > page.Height - 50)
-                        {
-                            page = pdf.AddPage();
-                            gfx = XGraphics.FromPdfPage(page);
-                            y = 50; // Reset y for new page
-                            x = 20;
-                            // Redraw headers on new page
-                            foreach (var column in columnsInOrder)
-                            {
-                                if (!column.Visible) continue;
-                                XBrush headerBrush = XBrushes.Blue;
-                                gfx.DrawRectangle(headerBrush, x, y - cellHeight, columnWidths[column.Name], cellHeight);
-                                gfx.DrawString(column.HeaderText, headerFont, XBrushes.White, new XRect(x, y - cellHeight, columnWidths[column.Name], cellHeight), XStringFormats.Center);
-                                x += columnWidths[column.Name];
-                            }
-                            y += cellHeight;
-                        }
-                    }
-
-                    pdf.Save(filePath);
-                    MessageBox.Show($"PDF file saved successfully at:\n{filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to export PDF:\n" + ex.Message);
-            }
-        }
-
-        private void DownloadPDF_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
-            saveFileDialog.FileName = $"Roadblocks_Report_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-            saveFileDialog.Title = "Save PDF File";
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                ExportDataGridViewToPdf_PdfSharp(dataGridView1, saveFileDialog.FileName);
-            }
-        }
-
-
-
-        private void comboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Reload data with updated filter
-            RoadBlockBoards_Load1(this, EventArgs.Empty);
-        }
-
-        private void comboBoxFamily_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Reload data with updated filter
-            RoadBlockBoards_Load1(this, EventArgs.Empty);
-        }
-
-        private void comboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Reload data with updated filter
-            RoadBlockBoards_Load1(this, EventArgs.Empty);
-        }
+  
 
         private void label6_Click(object sender, EventArgs e)
         {

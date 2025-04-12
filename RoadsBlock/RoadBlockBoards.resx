@@ -135,26 +135,6 @@
         rkJggg==
 </value>
   </data>
-  <data name="DownloadPDF.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAz9JREFUaEPtlt9Lk2EUx73rXwi66hcVFEUXFf2kUJO6MzLdTMVtipKEGkElGGVh
-        XaQX/SKykKIgIbzQCgtCCsM7C5PAUDFriZihpHOrfePZk7qdM7fnged9NPALH7Z37+Gc73d7z/suJWVJ
-        S3JWOLYKjpC1spbOckRssAHCJbvkexsh6HAThD51IVy6Wx47HYION0Fo2G8vBB1ugkgAWyHocBPMBrAR
-        gg43QUwAp0PQ4SZgAZwMQYebgJl3MgQdbgJm3MkQdLgJmGlKVAjqR1t0uG2oH23RhrahfrRFG9qG+tEW
-        bWgb6kdbtKES1VnAUC8w9QtoqufnNaB+tEUbKjHQg1mFw8DJ/bxGEepHW7ShEsHpuQBC9WW8RhHqR1u0
-        oRLjP/7zAB/exgYQO0FrFKF+tEUbKtF4cc682AHPVl6jCPWjLdpQiaJtQDAgA3zp5ec1oH60RRsq09Ei
-        A/R/BLLX8POKUD/aog2V8Q/MXUaNNfy8ItSPtmhDJaqOSOOhoHydngLK03idAtSPtmhDJZ43SuOt94A3
-        zfL98CBQvJ3XJoH60RZtmJSCTcDEmLz7VKTLY7EHQn3dQE0e0FAtQ756DLx8BNw8BbjWAld9DOpHW8xg
-        Mh5clmZ7OuWxCPHsvvwskdqfMvP2A+SuB0a/S0Of3wP+/liTMzsRT2JP/plOc3njQr0piZmcD3EJiH+e
-        VN/6gJa7wAW3DCh+ockJWgV0tS9QgOzVwPWK2NtmYBJ43QScy+T1gsItwI1KoLUBaHsI3DkL5G1cgAAn
-        9gLd76K/R/nkFQZprQpWA5w+DPwciTX/57d8BtBaVawGmLk1Rqv5Fq+bjzh3HLsBxsdizXe+0PvPE8e4
-        3QDXSoGRr/IyelIH5G7gNYmoLYyYrSvjRlVJdXlvU79MbLApSnZGAoSu+FDu4+YU6MjIKFtG/TKxwSap
-        zIiEGL3kRU4+M5gI/4G84hXUa1yxoSYRz5CqzEiInvM+HMplRjk5nuBBt3cP9Tmv2FDTuNcBNccjIdrO
-        xDFMSHd5i6jHhGIDnaBgs9JSKy0tFRvmFMmXWm1pF4P2Hc1fnpbjGYoyr760i0Wpbu+OVJcnoL20i0li
-        YZMt7V9DgPPkfHW+VwAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
