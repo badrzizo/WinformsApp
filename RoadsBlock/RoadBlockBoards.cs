@@ -161,7 +161,7 @@ namespace WinFormsApp.RoadsBlock
 
 
 
-        private void DeleteRoadblockFromDatabase(int idToDelete)
+        private void  DeleteRoadblockFromDatabase(int idToDelete)
         {
             string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
 

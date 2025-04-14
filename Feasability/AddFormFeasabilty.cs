@@ -51,6 +51,22 @@ namespace WinFormsApp.Feasability
             "Yes",
             "No"});
             WorkplaceCombobox.SelectedIndex = 0;
+
+
+            GetDataPhaseComboBox();
+            GetDataCarlineComboBox();
+            GetDataFamComboBox();
+            GetDataMycComboBox();
+            GetDataTOCComboBox();
+
+
+            PhaseComboBox.SelectedIndex = 0;
+            CarlineCombobox.SelectedIndex = 0;
+            FamComboBox.SelectedIndex = 0;
+            MycComboBox.SelectedIndex = 0;
+            TOCcombobox.SelectedIndex = 0;
+
+
         }
 
         private void materialButton1_Click(object sender, EventArgs e)
@@ -78,6 +94,99 @@ namespace WinFormsApp.Feasability
 
             this.DialogResult = DialogResult.OK;
             this.Close();
+
+
+        }
+
+
+        private void GetDataPhaseComboBox()
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Name FROM PhaseFeasability";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        PhaseComboBox.Items.Add(reader["Name"].ToString());
+                    }
+                }
+            }
+        }
+
+        private void GetDataCarlineComboBox()
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Name FROM Carline";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CarlineCombobox.Items.Add(reader["Name"].ToString());
+                    }
+                }
+            }
+        }
+
+        private void GetDataFamComboBox()
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT family_name FROM Family";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        FamComboBox.Items.Add(reader["family_name"].ToString());
+                    }
+                }
+            }
+        }
+
+        private void GetDataMycComboBox()
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Name FROM MYC";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        MycComboBox.Items.Add(reader["Name"].ToString());
+                    }
+                }
+            }
+        }
+
+        private void GetDataTOCComboBox()
+        {
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT Text FROM Type_Of_Change";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        TOCcombobox.Items.Add(reader["Text"].ToString());
+                    }
+                }
+            }
         }
 
 

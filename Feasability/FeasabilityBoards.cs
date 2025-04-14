@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace WinFormsApp.Feasability
@@ -87,11 +90,133 @@ namespace WinFormsApp.Feasability
             DataGridViewFeasibility.Columns["serial_board_integration"].HeaderCell.Style.ForeColor = Color.White;
             DataGridViewFeasibility.Columns["workplace_integration"].HeaderCell.Style.ForeColor = Color.White;
 
+            
 
 
 
-           
+
+
+
+            // Handle the CellValueChanged event to color the cells
+            DataGridViewFeasibility.CellValueChanged += DataGridViewFeasibility_CellValueChanged;
+
+            DataGridViewFeasibility.DataError += DataGridViewFeasibility_DataError;
+
+            DataGridViewFeasibility.CellEndEdit += DataGridViewFeasibility_CellEndEdit;
+
+            DataGridViewFeasibility.UserDeletingRow += DataGridViewFeasibility_UserDeletingRow;
+
+            DataGridViewFeasibility.CellContentClick += DataGridViewFeasibility_CellContentClick;
+
         }
+
+        private void DataGridViewFeasibility_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Handle data error if needed
+            MessageBox.Show("Data error: " + e.Exception.Message);
+        }
+
+
+        private void UpdateFeasabilityInDatabase(int id, string columnName, string value)
+        
+        {
+            // Update the database with the new value
+            using (SqlConnection connection = new SqlConnection("Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;"))
+            {
+                connection.Open();
+                string query = $"UPDATE Feasibility SET {columnName} = @value WHERE id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@value", value);
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+
+        }
+               
+
+        private void DeleteFromfeasability(int id)
+        {
+            // Delete the record from the database
+            using (SqlConnection connection = new SqlConnection("Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;"))
+            {
+                connection.Open();
+                string query = "DELETE FROM Feasibility WHERE id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        private void DataGridViewFeasibility_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Get the ID of the row being deleted
+            int id = Convert.ToInt32(e.Row.Cells["id"].Value);
+            // Confirm deletion
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                // Delete the record from the database
+                DeleteFromfeasability(id);
+            }
+            else
+            {
+                e.Cancel = true; // Cancel the deletion if user selects No
+            }
+        }
+
+
+        // Adding Delete button to each row
+        private void DataGridViewFeasibility_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == DataGridViewFeasibility.Columns["Delete"].Index)
+            {
+                // Get the ID of the row being deleted
+                int id = Convert.ToInt32(DataGridViewFeasibility.Rows[e.RowIndex].Cells["id"].Value);
+                // Confirm deletion
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Delete the record from the database
+                    DeleteFromfeasability(id);
+                    // Refresh the DataGridView
+                    this.feasibilityTableAdapter.Fill(this.boardDBDataSet.Feasibility);
+                    ColorYesNoCells();
+                }
+            }
+        }
+
+
+
+
+
+
+
+        private void DataGridViewFeasibility_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the edited cell is in a yes/no column
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                var cell = DataGridViewFeasibility.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
+                {
+                    string cellText = cell.Value.ToString().Trim();
+                    int id = Convert.ToInt32(DataGridViewFeasibility.Rows[e.RowIndex].Cells["id"].Value);
+                    // Update the database with the new value
+                    UpdateFeasabilityInDatabase(id, DataGridViewFeasibility.Columns[e.ColumnIndex].Name, cellText);
+                }
+            }else
+            {
+                MessageBox.Show("Error Editing Data");
+            }
+        }
+
+
 
 
         private void DataGridViewFeasibility_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -159,12 +284,45 @@ namespace WinFormsApp.Feasability
 
             ColorYesNoCells();
 
+
+            // Set the DataGridView to allow user to delete rows
+            DataGridViewFeasibility.AllowUserToDeleteRows = true;
+
+            // Add a button column for deleting rows
+            DataGridViewButtonColumn deleteButtonColumn = new DataGridViewButtonColumn();
+
+            deleteButtonColumn.HeaderText = "Delete";
+            deleteButtonColumn.Text = "Delete";
+            deleteButtonColumn.UseColumnTextForButtonValue = true;
+            deleteButtonColumn.Name = "Delete";
+            deleteButtonColumn.Width = 50; // Set the width of the button column
+            deleteButtonColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center the button
+            DataGridViewFeasibility.Columns.Add(deleteButtonColumn);
+
+            // Style the button column
+            deleteButtonColumn.DefaultCellStyle.BackColor = Color.Red;
+            deleteButtonColumn.DefaultCellStyle.ForeColor = Color.White;
+            deleteButtonColumn.DefaultCellStyle.Font = new Font(DataGridViewFeasibility.Font, FontStyle.Bold);
+            deleteButtonColumn.HeaderCell.Style.BackColor = Color.Red;
+            deleteButtonColumn.HeaderCell.Style.ForeColor = Color.White;
+            deleteButtonColumn.HeaderCell.Style.Font = new Font(DataGridViewFeasibility.Font, FontStyle.Bold);
+            deleteButtonColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             Feasability.AddFormFeasabilty addFormFeasabilty = new Feasability.AddFormFeasabilty();
-            addFormFeasabilty.ShowDialog();
+            if (addFormFeasabilty.ShowDialog() == DialogResult.OK)
+            {
+                // Refresh the DataGridView after adding a new record
+                this.feasibilityTableAdapter.Fill(this.boardDBDataSet.Feasibility);
+                ColorYesNoCells();
+            }
+
         }
     }
 }
