@@ -86,7 +86,7 @@ namespace WinFormsApp.Feasability
             string Holders, string wtc, string HoldersEOL, string Programme,
             string SerialBoard, string Workplace, DateTime Date)
         {
-            string connectionString = "Server=localhost;Database=master;Integrated Security=True;TrustServerCertificate=True;";
+            string connectionString = "Server=localhost;Database=BoardDB;Integrated Security=True;TrustServerCertificate=True;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -125,7 +125,34 @@ namespace WinFormsApp.Feasability
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            BoardsApp.FeasabilityFolder.ManagerPhase managerPhase = new BoardsApp.FeasabilityFolder.ManagerPhase();
+            managerPhase.ShowDialog();
+        }
 
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            BoardsApp.FeasabilityFolder.ManagerCarlineFrom managerCarlineFrom = new BoardsApp.FeasabilityFolder.ManagerCarlineFrom();
+            managerCarlineFrom.ShowDialog();
+        }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            BoardsApp.FeasabilityFolder.ManagerFamiliesForm managerFam = new BoardsApp.FeasabilityFolder.ManagerFamiliesForm();
+            managerFam.ShowDialog();
+
+        }
+
+        private void linkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            BoardsApp.FeasabilityFolder.ManagerMYCForm managerMYC = new BoardsApp.FeasabilityFolder.ManagerMYCForm();
+            managerMYC.ShowDialog();
+
+        }
+
+        private void linkLabel9_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            BoardsApp.FeasabilityFolder.ManagerTOC managerTOC = new BoardsApp.FeasabilityFolder.ManagerTOC();
+            managerTOC.ShowDialog();
         }
     }
 }

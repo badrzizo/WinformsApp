@@ -90,10 +90,7 @@ namespace WinFormsApp.Feasability
 
 
 
-            
-            
-
-
+           
         }
 
 

@@ -130,3 +130,9 @@ C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharp.resources.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharp.Charting.resources.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\bin\Debug\de\PdfSharpCore.resources.dll
 C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\WinFormsApp.Feasability.AddFormFeasabilty.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerCarlineFrom.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerFamiliesForm.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerFeasability.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerMYCForm.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerPhase.resources
+C:\Users\hp\Desktop\BoardsApp1.0\WinFormsApp\obj\Debug\BoardsApp.FeasabilityFolder.ManagerTOC.resources
