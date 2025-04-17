@@ -43,13 +43,13 @@ namespace WinFormsApp.Feasability
             DataGridViewFeasibility.Columns["what_is_the_change"].Width = 200;
             DataGridViewFeasibility.Columns["type_of_change"].Width = 200;
             DataGridViewFeasibility.Columns["date"].Width = 100;
-            DataGridViewFeasibility.Columns["phase"].Width = 100;
+            DataGridViewFeasibility.Columns["phase"].Width = 50;
             DataGridViewFeasibility.Columns["carline"].Width = 100;
             DataGridViewFeasibility.Columns["fam"].Width = 100;
             DataGridViewFeasibility.Columns["MYC"].Width = 100;
-            DataGridViewFeasibility.Columns["type_of_change"].Width = 100;
-            DataGridViewFeasibility.Columns["what_is_the_change"].Width = 100;
-            DataGridViewFeasibility.Columns["integration"].Width = 100;
+            DataGridViewFeasibility.Columns["type_of_change"].Width = 400;
+            DataGridViewFeasibility.Columns["what_is_the_change"].Width = 400;
+            DataGridViewFeasibility.Columns["integration"].Width = 40;
             DataGridViewFeasibility.Columns["board_availability"].Width = 100;
             DataGridViewFeasibility.Columns["holders_board"].Width = 100;
             DataGridViewFeasibility.Columns["holders_eol"].Width = 100;
@@ -90,13 +90,9 @@ namespace WinFormsApp.Feasability
             DataGridViewFeasibility.Columns["serial_board_integration"].HeaderCell.Style.ForeColor = Color.White;
             DataGridViewFeasibility.Columns["workplace_integration"].HeaderCell.Style.ForeColor = Color.White;
 
+
+            DataGridViewFeasibility.Invalidate();
             
-
-
-
-
-
-
             // Handle the CellValueChanged event to color the cells
             DataGridViewFeasibility.CellValueChanged += DataGridViewFeasibility_CellValueChanged;
 
